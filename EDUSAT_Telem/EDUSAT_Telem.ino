@@ -2,15 +2,16 @@
 /*   Libraries and Macros   */
 #include <math.h>
 
-#define V_SENSE_SIZE 6 //Number of voltage sensors
-#define I_SENSE_SIZE 6 //Number of current sensors
-#define T_SENSE_SIZE 4 //Number of temperature sensors
-#define MUX_SIZE 16 //Number of MUX channels
+#define V_SENSE_SIZE 6  //Number of voltage sensors
+#define I_SENSE_SIZE 6  //Number of current sensors
+#define T_SENSE_SIZE 4  //Number of temperature sensors
+#define MUX_SIZE 16     //Number of MUX channels
 
-#define DATA_SIZE 7 //String length for each data type
-#define DECI_SIZE 2 //Number of decialmal points
-#define POLE_TIME 1000 //System polling time
-#define CURRENT_GAIN 2 //Amount of gain applied to measued "current"
+#define DATA_SIZE 10    //String length for each data type
+#define DECI_SIZE 2     //Number of decialmal points
+#define BUFFER_SIZE 50  //Size of buffer to send data
+#define POLE_TIME 500   //System polling time
+#define CURRENT_GAIN 2  //Amount of gain applied to measued "current"
 
 /*   MUX variables   */
 //Mux control/signal digital pins
@@ -67,33 +68,34 @@ float T[T_SENSE_SIZE] = {}; //All current temperatures, calulated based on Rt, i
 
 
 /*   Transmission variables   */
-char voltage[DATA_SIZE];
-char current[DATA_SIZE];
-char temperature[DATA_SIZE];
+char bf[BUFFER_SIZE];
 
 //////////////////////////////////////////////////////////////////////////
 /*   Supporting Functions   */
 //Function to send telem to computer
 void sendStatus(float V[V_SENSE_SIZE], float I[I_SENSE_SIZE], float T[T_SENSE_SIZE]) {
-    //Assume all v,i,t values are < 999 in order to generate 1 padding at the front of dtostrf()
-    for (int i=0; i<DATA_SIZE; i++) {
-        dtostrf(V[i], 7, DECI_SIZE, voltage);
-        //Serial.println(V[i]);
-        //Serial.println(voltage);
-        voltage[0] = 'v';
-        voltage[6] = '\n';
+    for (int i=0; i<V_SENSE_SIZE; i++) {
+        dtostrf(V[i], DATA_SIZE, DECI_SIZE, bf); 
+        bf[0] = 'v';
+        bf[DATA_SIZE-1] = '\n';
+    
+        Serial.print(bf);
+    }
 
-        dtostrf(I[i], 7, DECI_SIZE, current);
-        current[0] = 'i';
-        current[6] = '\n';
+    for (int i=0; i<I_SENSE_SIZE; i++) {
+        dtostrf(I[i], DATA_SIZE, DECI_SIZE, bf); 
+        bf[0] = 'i';
+        bf[DATA_SIZE-1] = '\n';
+    
+        Serial.print(bf);
+    }
 
-        dtostrf(T[i], 7, DECI_SIZE, temperature);
-        temperature[0] = 't';
-        temperature[6] = '\n';
-        
-        //Serial.println(voltage);
-        //Serial.println(current);
-        //Serial.println(temperature);
+    for (int i=0; i<T_SENSE_SIZE; i++) {
+        dtostrf(T[i], DATA_SIZE, DECI_SIZE, bf); 
+        bf[0] = 't';
+        bf[DATA_SIZE-1] = '\n';
+    
+        Serial.print(bf);
     }
 }
 
@@ -115,7 +117,7 @@ int readMux(int channel) {
 float tempCal(float curValue) {
     float temp = 0;
     //Calculate equivalent resistance of thermistor
-    Rt = thermRef * ((Vin / curValue) - 1);                  //curValue is the Vout (the measured output voltage from thermistor)
+    Rt = thermRef * (abs((Vin / curValue) - 1));                  //curValue is the Vout (the measured output voltage from thermistor)
     temp = (1 / ((1 / T0) + (log(Rt / R0) / B))) - 273.15; //In C
     return (temp);
 }
@@ -131,7 +133,8 @@ float voltageCal(float curValue, int i) {
     float volt = 0;
     //If the voltage has been divided, recalculate it
     if (i == 0) {
-        return(volt); //TODO: determine which voltages are divided
+        //return(volt); //TODO: determine which voltages are divided
+        return(999.999);
     }
     return (curValue);
 }
@@ -173,22 +176,15 @@ void setup() {
 //////////////////////////////////////////////////////////////////////////
 //Sensing loop:
 void loop() {
-    int v,j,t = 0; //Voltage, Current, Temperature counters
+    //Voltage, Current, Temperature counters
+    int v = 0;
+    int j = 0;
+    int t = 0; 
+    
     //Loop through and read all 16 channels from MUX
     for (int i = 0; i < MUX_SIZE; i++) {
-        
-        /*    TEST PRINTS     
-        Serial.print("Value at channel ");
-        Serial.print(i);
-        Serial.print(" is : ");
-        Serial.print(readMux(i));
         curVal = readMux(i) * (5.0 / 1023.0);
-        Serial.print(" - ");
-        Serial.print(curVal);
-            TEST PRINTS     */
 
-        curVal = 125.2;
-        
         if (i == 0 || i == 2 || i == 4 || i == 6 || i == 8 || i == 10) { //If current channel is measuring voltage (V)
             V[v] = voltageCal(curVal, i);
             v++;
@@ -201,11 +197,9 @@ void loop() {
             T[t] = tempCal(curVal);
             t++;
         }
-        //delay(POLE_TIME); //Delay between channel changes
-        Serial.println(V[i]);
+        delay(POLE_TIME); //Delay between channel changes
     }
     //Send telem data
     sendStatus(V,I,T);
 } 
-
 //////////////////////////////////////////////////////////////////////////
