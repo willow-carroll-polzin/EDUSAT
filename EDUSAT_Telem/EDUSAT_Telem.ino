@@ -5,9 +5,10 @@
 #define V_SENSE_SIZE 6 //Number of voltage sensors
 #define I_SENSE_SIZE 6 //Number of current sensors
 #define T_SENSE_SIZE 4 //Number of temperature sensors
+#define MUX_SIZE 16 //Number of MUX channels
 
-#define NUM_SENSE 16 //Number of MUX channels
-#define DATA_SIZE 6 //String length for each data type
+#define DATA_SIZE 7 //String length for each data type
+#define DECI_SIZE 2 //Number of decialmal points
 #define POLE_TIME 1000 //System polling time
 #define CURRENT_GAIN 2 //Amount of gain applied to measued "current"
 
@@ -72,23 +73,28 @@ char temperature[DATA_SIZE];
 
 //////////////////////////////////////////////////////////////////////////
 /*   Supporting Functions   */
-//Function to give system status
+//Function to send telem to computer
 void sendStatus(float V[V_SENSE_SIZE], float I[I_SENSE_SIZE], float T[T_SENSE_SIZE]) {
-    //for (int i=0; i<DATA_SIZE; i++) {
-        
+    //Assume all v,i,t values are < 999 in order to generate 1 padding at the front of dtostrf()
+    for (int i=0; i<DATA_SIZE; i++) {
+        dtostrf(V[i], 7, DECI_SIZE, voltage);
+        //Serial.println(V[i]);
+        //Serial.println(voltage);
+        voltage[0] = 'v';
+        voltage[6] = '\n';
 
-        //if (i > sizeof(V) || i > sizeof(I) || i > sizeof(T)) {
-        //    return;
-        //} else {
-            strcpy(voltage,V);
-            Serial.println(voltage);
-            //Serial.println(I[i]);
-            //Serial.println(T[i]);
-            //V[i] = 0;
-            //I[i] = 0;
-            //T[i] = 0;
-        //}
-    //}
+        dtostrf(I[i], 7, DECI_SIZE, current);
+        current[0] = 'i';
+        current[6] = '\n';
+
+        dtostrf(T[i], 7, DECI_SIZE, temperature);
+        temperature[0] = 't';
+        temperature[6] = '\n';
+        
+        //Serial.println(voltage);
+        //Serial.println(current);
+        //Serial.println(temperature);
+    }
 }
 
 //Function to read MUX IO and select channels
@@ -167,15 +173,9 @@ void setup() {
 //////////////////////////////////////////////////////////////////////////
 //Sensing loop:
 void loop() {
-    //Assign delimters
-    voltage[0] = 'V';
-    current[0] = 'I';
-    temperature[0] = 'T';
-
-    //Loop through and read all 16 channels from MUX
     int v,j,t = 0; //Voltage, Current, Temperature counters
-
-    for (int i = 0; i < NUM_SENSE; i++) {
+    //Loop through and read all 16 channels from MUX
+    for (int i = 0; i < MUX_SIZE; i++) {
         
         /*    TEST PRINTS     
         Serial.print("Value at channel ");
@@ -190,18 +190,19 @@ void loop() {
         curVal = 125.2;
         
         if (i == 0 || i == 2 || i == 4 || i == 6 || i == 8 || i == 10) { //If current channel is measuring voltage (V)
-            V[v+1] = voltageCal(curVal, i);
+            V[v] = voltageCal(curVal, i);
             v++;
         }
         else if (i == 1 || i == 3 || i == 5 || i == 7 || i == 9 || i == 11) { //If current channel is measuring current (Ohm)
-            I[j+1] = currentCal(curVal);
+            I[j] = currentCal(curVal);
             j++;
         }
         else if (i == 12 || i == 13 || i == 14 || i == 15) { //If current channel is measuring temperature (K)
-            T[t+1] = tempCal(curVal);
+            T[t] = tempCal(curVal);
             t++;
         }
-        delay(POLE_TIME); //Delay between channel changes
+        //delay(POLE_TIME); //Delay between channel changes
+        Serial.println(V[i]);
     }
     //Send telem data
     sendStatus(V,I,T);
