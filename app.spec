@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['EDUSAT_App\\app.py'],
-             pathex=['D:\\User\\Documents\\Arduino\\MAAE4917 - EDUSAT\\EDUSAT'],
+             pathex=['C:\\Users\\Keyanna C\\Documents\\School\\Summer 2020\\EDUSAT'],
              binaries=[],
              datas=[],
              hiddenimports=[],
