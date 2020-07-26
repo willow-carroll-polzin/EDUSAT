@@ -75,8 +75,9 @@ char bf[BUFFER_SIZE];
 //Function to send telem to computer
 void sendStatus(float V[V_SENSE_SIZE], float I[I_SENSE_SIZE], float T[T_SENSE_SIZE]) {
     for (int i=0; i<V_SENSE_SIZE; i++) {
+        //TODO: Add specific sensor numbers to each send (i.e. v1, v2)
         dtostrf(V[i], DATA_SIZE, DECI_SIZE, bf); 
-        bf[0] = 'v';
+        bf[0] = 'v' + static_cast<char> ( i );
         bf[DATA_SIZE-1] = '\n';
     
         Serial.print(bf);
