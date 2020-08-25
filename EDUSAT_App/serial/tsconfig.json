@@ -1,0 +1,16 @@
+{
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.tsx"
+    ],
+    "compilerOptions": {
+        "strict": true,
+        "module": "commonjs",
+        "target": "ESNext",
+        "outDir": "build",
+        "jsx": "react",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "incremental": true
+    }
+}
