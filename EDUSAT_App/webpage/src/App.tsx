@@ -2,7 +2,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { State } from "./interfaces";
-import Chart from "chart.js"
+import Chart from "chart.js";
 
 /*  REACT-REDUX CONNECTION FUNCTIONS  */
 const mapStateToProps = (state: State) => ({
@@ -37,58 +37,15 @@ const RSidebar = (state: State) => (
 const LSidebar = (state: State) => (
     <React.Fragment>
         <div>SYSTEM STATUS</div>
-        <script>
-            
-        </script>
+        <script></script>
     </React.Fragment>
 );
-const ChartBox = (state:State) => (
+const ChartBox = (state: State) => (
     <React.Fragment>
-         <canvas id="myChart" width="400" height="400"></canvas>
-         <div>{myChart}</div>
+
     </React.Fragment>
 );
-//var ctx = document.getElementById('myChart');
 
-//THIS SECTION BELOW IS WHAT IS MAKING IT MESS UP
-const ctx = new CanvasRenderingContext2D();
-/*
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Voltage', 'Current', 'Temperature'],
-        datasets: [{
-            label: 'Value',
-            data: [10,10,10],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
-});*/
 
 
 //Export new functions that connect our html returning functions to our store

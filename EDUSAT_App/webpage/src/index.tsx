@@ -7,6 +7,10 @@ import { Provider } from "react-redux";
 import { State, SensorStatus, UpdateSensorData, Action } from "./interfaces";
 import { SensorsConnected, RSidebarConnected, LSidebarConnected, ChartConnected } from "./App";
 import { devToolsEnhancer, composeWithDevTools } from "redux-devtools-extension";
+import Chart from "chart.js";
+
+/*TIME DATA SETUP*/
+var today = new Date();
 
 /*  REDUX SETUP  */
 //Initial state of redux store
@@ -54,6 +58,16 @@ ReactDOM.render(
     lSideBarElement
 );
 
+function addData(chart: Chart, label: string, data: number) {
+    if (chart.data.labels) {
+        chart.data.labels.push(label);
+    }
+    if (chart.data.datasets)
+        chart.data.datasets.forEach((dataset) => {
+            if (dataset.data) dataset.data.push(data);
+        });
+    chart.update();
+}
 const chartElement = document.getElementById("myChart");
 ReactDOM.render(
     <Provider store={store}>
@@ -61,7 +75,7 @@ ReactDOM.render(
         <div>CHART ELEMENT RENDER</div>
     </Provider>,
     chartElement
-)
+);
 
 /*  SOCKET SETUP  */
 const socket = io("http://192.168.0.25:3000/"); //Port for client
@@ -79,6 +93,16 @@ socket.on("connect", () => {
     socket.on("sensorData", function (data: SensorStatus) {
         console.log("webpage has received sensor data");
         console.log(data);
+        today = new Date();
+        addData(
+            myChart,
+            today.getHours().toString().padStart(2, "0") +
+                ":" +
+                today.getMinutes().toString().padStart(2, "0") +
+                ":" +
+                today.getSeconds().toString().padStart(2, "0"),
+            data.voltage[2]
+        );
         store.dispatch(UpdateSensorData(data));
     });
 });
@@ -99,7 +123,29 @@ function UpdateSensorData(sensors: SensorStatus): UpdateSensorData {
         type: "UpdateSensorData",
     };
 }
-
+var myChart = new Chart("myChart", {
+    type: "line",
+    data: {
+        labels: [],
+        datasets: [
+            {
+                data: [],
+                fill: true,
+            },
+        ],
+    },
+    options: {
+        scales: {
+            yAxes: [
+                {
+                    ticks: {
+                        beginAtZero: true,
+                    },
+                },
+            ],
+        },
+    },
+});
 //Reduce the action that was dispatched
 function reducer(state: State = initial_State, action: Action): State {
     if (action.type === "UpdateSensorData") {
@@ -112,6 +158,7 @@ function reducer(state: State = initial_State, action: Action): State {
                 temperature: state.sensors.temperature,
             },
         };
+
         return newState;
     }
     return state;

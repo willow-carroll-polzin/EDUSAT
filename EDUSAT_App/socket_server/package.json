@@ -10,7 +10,6 @@
     "scripts": {
         "build": "tsc",
         "clean": "rm -rf build",
-        "peer": "peerjs --port 9000 --path /myapp",
         "start": "node build/main.js",
         "setup": "yarn install"
     },
@@ -19,7 +18,6 @@
         "typescript": "3.9.6"
     },
     "dependencies": {
-        "peer": "0.5.3",
         "socket.io": "2.3.0"
     }
 }
