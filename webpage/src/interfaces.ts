@@ -1,7 +1,8 @@
 /*      SYSTEM STATES FOR GUI       */
 export interface SensorStatus {
-    selection: {heartRate: boolean, temperature: boolean};
-    values: {heartRate: number, temperature: number};
+    voltage:Array<number>;
+    current:Array<number>;
+    temperature: Array<number>;
 }
 
 export interface State {
@@ -11,8 +12,9 @@ export interface State {
 /*      ACTIONS     */
 export interface UpdateSensorData {
     type:"UpdateSensorData"
-    selection: {heartRate: boolean, temperature: boolean}
-    values: {heartRate: number, temperature: number}
+    voltage:Array<number>;
+    current:Array<number>;
+    temperature:Array<number>;
 }
 
 /*      TYPES     */

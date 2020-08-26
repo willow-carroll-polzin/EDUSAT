@@ -4,21 +4,17 @@ import ReactDOM from "react-dom";
 import io from "socket.io-client";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import {
-    State,
-    SensorStatus,
-    UpdateSensorData,
-    Action,
-} from "./interfaces";
-import {SensorsConnected,RSidebarConnected,LSidebarConnected} from "./App";
+import { State, SensorStatus, UpdateSensorData, Action } from "./interfaces";
+import { SensorsConnected, RSidebarConnected, LSidebarConnected, ChartConnected } from "./App";
 import { devToolsEnhancer, composeWithDevTools } from "redux-devtools-extension";
 
 /*  REDUX SETUP  */
 //Initial state of redux store
 const initial_State: State = {
     sensors: {
-        selection: { heartRate: false, temperature: false },
-        values: { heartRate: 0, temperature: 0 },
+        voltage: [0, 0, 0, 0, 0, 0],
+        current: [0, 0, 0, 0, 0, 0],
+        temperature: [0, 0, 0, 0],
     },
 };
 
@@ -53,9 +49,19 @@ ReactDOM.render(
     //Provide the 'SensorsConnected' React component with access to the store
     <Provider store={store}>
         <LSidebarConnected />
+        <div>LEFT SIDEBAR RENDER</div>
     </Provider>,
     lSideBarElement
 );
+
+const chartElement = document.getElementById("myChart");
+ReactDOM.render(
+    <Provider store={store}>
+        <ChartConnected />
+        <div>CHART ELEMENT RENDER</div>
+    </Provider>,
+    chartElement
+)
 
 /*  SOCKET SETUP  */
 const socket = io("http://192.168.0.25:3000/"); //Port for client
@@ -68,11 +74,11 @@ socket.on("connect", () => {
     socket.send("Hello from client!");
 
     //Check for current data from sensors
-    //Note that this OBC client only listens for sensor data, 
+    //Note that this OBC client only listens for sensor data,
     //it does not actively request it like the remote client
     socket.on("sensorResponse", function (data: SensorStatus) {
         //TODO: Explicitly list the type
-        console.log("webpage has received sensor response")
+        console.log("webpage has received sensor response");
         console.log(data); //DO SOMETHING WITH THE DATA!
         store.dispatch(UpdateSensorData(data));
     });
@@ -88,15 +94,9 @@ socket.on("reconnect", (e: number) => {
 //updatesensordata action creator, returns a Action
 function UpdateSensorData(sensors: SensorStatus): UpdateSensorData {
     return {
-        selection: {
-            //fix how the sensor selection is retrieved
-            heartRate: sensors.selection.heartRate,
-            temperature: sensors.selection.temperature,
-        },
-        values: {
-            heartRate: sensors.values.heartRate,
-            temperature: sensors.values.temperature,
-        },
+        voltage: sensors.voltage,
+        current: sensors.current,
+        temperature: sensors.temperature,
         type: "UpdateSensorData",
     };
 }
@@ -108,10 +108,9 @@ function reducer(state: State = initial_State, action: Action): State {
             ...state,
             sensors: {
                 ...state.sensors,
-                values: {
-                    heartRate: action.selection.heartRate ? action.values.heartRate : state.sensors.values.heartRate,
-                    temperature: action.selection.temperature ? action.values.temperature : state.sensors.values.temperature,
-                },
+                voltage: state.sensors.voltage,
+                current: state.sensors.current,
+                temperature: state.sensors.temperature,
             },
         };
         return newState;
