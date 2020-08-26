@@ -45,20 +45,21 @@ const LSidebar = (state: State) => (
 const ChartBox = (state:State) => (
     <React.Fragment>
          <canvas id="myChart" width="400" height="400"></canvas>
-         <div>This is my chart</div>
+         <div>{myChart}</div>
     </React.Fragment>
 );
 //var ctx = document.getElementById('myChart');
 
 //THIS SECTION BELOW IS WHAT IS MAKING IT MESS UP
 const ctx = new CanvasRenderingContext2D();
+
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['Voltage', 'Current', 'Temperature'],
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            label: 'Value',
+            data: [10,10,10],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
