@@ -109,6 +109,9 @@ function reducer(state: State = initial_State, action: Action): State {
 
 /*      SETUP SERIAL PORT      */
 const HEADER = "H";
+const VHEADER ="V";
+const THEADER="T";
+const IHEADER="I";
 const DELIMITER = ",";
 const FOOTER = "F";
 const MAX_DATA_SIZE = 100;
@@ -173,7 +176,11 @@ function portReading(port: SerialPort): SerialPort {
     port.on("open", function () {
         console.log("Serial port is open!");
 
+        //variable to show which type of data we are collecting (V,I,T)
+        var dataType = -1;
+        //variable to store our index in the array of data we are currently using
         var dataIndex = 0;
+
 
         parser.on("data", function (data: any) {
             let newSensorData: SensorStatus = {
@@ -187,16 +194,36 @@ function portReading(port: SerialPort): SerialPort {
                 //Cycle through valid data and assign it to the correct state variable
                 for (var i = 1; i < data.length; i++) {
                     switch (data[i]) {
+                        case ('\n'):{
+                            //ignore newlines
+                            break;
+                        }
+                        //If we have received the header of a subsection, set our current data type to that
+                        case VHEADER:{
+                            dataType=0;
+                            dataIndex = 0;
+                            break;
+                        }
+                        case IHEADER:{
+                            dataType=1;
+                            dataIndex = 0;
+                            break;
+                        }
+                        case THEADER:{
+                            dataType=2;
+                            dataIndex = 0;
+                            break;
+                        }
                         case DELIMITER: {
-                            switch (dataIndex) {
+                            switch (dataType) {
                                 case 0:
-                                    newSensorData.voltage[i] = +currentData;
+                                    newSensorData.voltage[dataIndex] = +currentData;
                                     break;
                                 case 1:
-                                    newSensorData.current[i] = +currentData;
+                                    newSensorData.current[dataIndex] = +currentData;
                                     break;
                                 case 2:
-                                    newSensorData.temperature[i] = +currentData;
+                                    newSensorData.temperature[dataIndex] = +currentData;
                                     break;
                                 default:
                                     break;
