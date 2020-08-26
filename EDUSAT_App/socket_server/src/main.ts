@@ -8,7 +8,7 @@ import {
 
 /*      SETUP SERVER AND SOCKET     */
 var httpserver=http.createServer();
-httpserver.listen(3000,"192.168.0.25")
+httpserver.listen(3000,"192.168.0.45")
 const server = io.listen(httpserver); //SocketIO server
 
 let curCmd:string; //Command to send to system
