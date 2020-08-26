@@ -76,25 +76,42 @@ char temperature[DATA_SIZE];
 //Function to send telem to computer
 void sendStatus(float V[V_SENSE_SIZE], float I[I_SENSE_SIZE], float T[T_SENSE_SIZE]) {
     //Assume all v,i,t values are < 999 in order to generate 1 padding at the front of dtostrf()
-    for (int i=0; i<DATA_SIZE; i++) {
+    /*for (int i=0; i<DATA_SIZE; i++) {
         dtostrf(V[i], 7, DECI_SIZE, voltage);
         //Serial.println(V[i]);
         //Serial.println(voltage);
         voltage[0] = 'v';
-        voltage[6] = '\n';
+        //voltage[6] = '\n';
 
         dtostrf(I[i], 7, DECI_SIZE, current);
         current[0] = 'i';
-        current[6] = '\n';
+        //current[6] = '\n';
 
         dtostrf(T[i], 7, DECI_SIZE, temperature);
         temperature[0] = 't';
-        temperature[6] = '\n';
+        //temperature[6] = '\n';
         
-        //Serial.println(voltage);
-        //Serial.println(current);
-        //Serial.println(temperature);
+        Serial.println(voltage);
+        Serial.println(current);
+        Serial.println(temperature);
+    }*/
+    Serial.print("H");
+    Serial.print("V");
+    for (int i =0; i < V_SENSE_SIZE; i++){
+      Serial.print(V[i]);
+      Serial.print(",");
     }
+    Serial.print("I");
+    for (int i =0; i < I_SENSE_SIZE; i++){
+      Serial.print(I[i]);
+      Serial.print(",");
+    }
+    Serial.print("T");
+    for (int i =0; i < T_SENSE_SIZE; i++){
+      Serial.print("25");
+      Serial.print(",");
+    }
+    Serial.println("F");
 }
 
 //Function to read MUX IO and select channels
@@ -202,9 +219,11 @@ void loop() {
             t++;
         }
         //delay(POLE_TIME); //Delay between channel changes
-        Serial.println(V[i]);
+        //Serial.println(V[i]);
     }
     //Send telem data
+    //Serial.println(V[0]);
+    //Serial.println(I[0]);
     sendStatus(V,I,T);
 } 
 

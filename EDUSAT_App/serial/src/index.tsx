@@ -148,7 +148,6 @@ SerialPort.list()
     })
     .then((port) => {
         setupSocketEvents(port);
-        console.log("in then5");
         return port;
     })
     .catch((err) => {
@@ -183,6 +182,7 @@ function portReading(port: SerialPort): SerialPort {
 
 
         parser.on("data", function (data: any) {
+            console.log("received data")
             let newSensorData: SensorStatus = {
                 voltage: [0, 0, 0, 0, 0, 0],
                 current: [0, 0, 0, 0, 0, 0],
