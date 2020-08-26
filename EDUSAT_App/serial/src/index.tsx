@@ -3,14 +3,10 @@ import io from "socket.io-client";
 import SerialPort from "serialport";
 import { createStore } from "redux";
 import {
-    RobotStatus,
-    DrivetrainStatus,
     SensorStatus,
     ComPort,
     State,
     Action,
-    UpdateRobotData,
-    UpdateDrivetrainData,
     UpdateSensorData,
     UpdateComPort,
 } from "./interfaces";
@@ -25,23 +21,16 @@ function setupSocketEvents(port: SerialPort): SerialPort {
         console.log("Connected to server!");
         socket.send("Hello from client!");
 
-        socket.on("command", function (data: DrivetrainStatus) {
+        socket.on("command", function (data: string) {
             //Process is: RX Command -> serialWrite to MCU -> UpdateDrivetrainData
 
-            setDriveTrainStatus(data, port);
-            store.dispatch(UpdateDrivetrainData(data));
+            sendCommands(data, port);
         });
 
         socket.on("sensorRequest", function () {
             //Process is: RX req -> Query MCU -> Record MCU -> UpdateSensorData -> emit update
             const x = sendSensorData(store.getState().sensor, socket);
             x();
-        });
-
-        socket.on("robotRequest", function () {
-            //Process is: RX req -> Query MCU -> Record MCU -> UpdateRobotData -> emit update
-            const y = sendRobotData(store.getState().robot, socket);
-            y();
         });
     });
     //Log reconnect attempts
@@ -54,12 +43,6 @@ function setupSocketEvents(port: SerialPort): SerialPort {
 
 //Send robot status information
 type SEND = () => void; //IO type
-const sendRobotData = (status: RobotStatus, socket: SocketIOClient.Socket): SEND => {
-    //Instance of IO type
-    const send = () => socket.emit("robotResponse", status);
-    return send;
-};
-
 //Send sensor information
 const sendSensorData = (sensor: SensorStatus, socket: SocketIOClient.Socket): SEND => {
     //Instance of IO type
@@ -71,11 +54,6 @@ const sendSensorData = (sensor: SensorStatus, socket: SocketIOClient.Socket): SE
 //Redux dispatch store setup
 //var serialPort = new SerialPort("NO CONNECTION");
 const initial_State: State = {
-    robot: { connected: false, voltage: 0 },
-    drive: {
-        axes: { x: 0, y: 0, om: 0 },
-        toggle: { start: 0, stop: 0 },
-    },
     sensor: {
         selection: { heartRate: false, temperature: false },
         values: { heartRate: 0, temperature: 0 },
@@ -89,7 +67,7 @@ const unsubscribe = store.subscribe(() => {
     x();
 }); //When state updates can subscribe the store here
 
-setInterval(   sendSensorData(store.getState().sensor, socket),1000/30)
+setInterval(sendSensorData(store.getState().sensor, socket), 1000 / 30);
 
 //update game data action creator, returns a Action
 function UpdateDrivetrainData(drive: DrivetrainStatus): UpdateDrivetrainData {
@@ -140,28 +118,7 @@ function reducer(state: State = initial_State, action: Action): State {
             sensor: {
                 ...state.sensor,
                 selection: action.selection,
-                values: {...action.values,
-                temperature:Math.random()*5},
-            },
-        };
-        return newState;
-    } else if (action.type === "UpdateRobotData") {
-        const newState: State = {
-            ...state,
-            robot: {
-                ...state.robot,
-                connected: action.connected,
-                voltage: action.voltage,
-            },
-        };
-        return newState;
-    } else if (action.type === "UpdateDrivetrainData") {
-        const newState: State = {
-            ...state,
-            drive: {
-                ...state.drive,
-                axes: action.axes,
-                toggle: action.toggle,
+                values: { ...action.values, temperature: Math.random() * 5 },
             },
         };
         return newState;
@@ -246,30 +203,26 @@ function portReading(port: SerialPort): SerialPort {
 
         parser.on("data", function (data: any) {
             let newSensorData: SensorStatus = {
-                selection: { heartRate: false, temperature: true },
-                values: { heartRate: 0, temperature: 0 },
+                voltage: [0, 0, 0, 0, 0, 0],
+                current: [0, 0, 0, 0, 0, 0],
+                temperature: [0, 0, 0, 0],
             };
 
-            let newRobotData: RobotStatus = {
-                connected: true,
-                voltage: 10,
-            };
             //Check if the received data has a valid format that we can read and then parse it
             if (data[0] === HEADER) {
-                //console.log(data)
+                //Cycle through valid data and assign it to the correct state variable
                 for (var i = 1; i < data.length; i++) {
-                    //console.log(data[i])
                     switch (data[i]) {
                         case DELIMITER: {
                             switch (dataIndex) {
                                 case 0:
-                                    newSensorData.values.heartRate = +currentData;
+                                    newSensorData.voltage[i] = +currentData;
                                     break;
                                 case 1:
-                                    newSensorData.values.temperature = +currentData;
+                                    newSensorData.current[i] = +currentData;
                                     break;
                                 case 2:
-                                    newRobotData.voltage = +currentData;
+                                    newSensorData.temperature[i] = +currentData;
                                     break;
                                 default:
                                     break;
@@ -281,9 +234,7 @@ function portReading(port: SerialPort): SerialPort {
                         case FOOTER: {
                             dataIndex = 0;
                             console.log(newSensorData);
-                            console.log(newRobotData);
                             store.dispatch(UpdateSensorData(newSensorData));
-                            store.dispatch(UpdateRobotData(newRobotData));
                             return;
                         }
                         default: {
@@ -298,16 +249,13 @@ function portReading(port: SerialPort): SerialPort {
     return port;
 }
 
+//TODO:
 //Send serial data over serial interface to MCU
-function setDriveTrainStatus(command: DrivetrainStatus, port: SerialPort) {
+function sendCommands(command: string, port: SerialPort) {
     //If the port is open write data
     if (port.isOpen) {
         8;
-        port.write("a" + command.axes.x);
-        port.write("b" + command.axes.y);
-        port.write("c" + command.axes.om);
-        port.write("s" + command.toggle.start);
-        port.write("e" + command.toggle.stop);
+        port.write("c" + command);
         port.write("\n");
     } else {
         return;

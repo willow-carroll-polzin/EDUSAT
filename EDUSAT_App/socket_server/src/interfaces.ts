@@ -1,27 +1,22 @@
 /*      SERVER INTERFACES AND TYPES       */
-export interface RobotStatus {
-    connected: boolean;
-    voltage: number;
-}
-
 export interface SensorStatus {
-    selection: {heartRate: boolean, temperature: boolean};
-    values: {heartRate: number, temperature: number};
+    voltage:Array<number>;
+    current:Array<number>;
+    temperature: Array<number>;
 }
 
-export interface GamepadStatus {
-    connected: boolean;
-    axes: Axes;
-    buttons: { start: number; stop: number };
+export interface State {
+    sensor: SensorStatus;
 }
 
-export interface DrivetrainStatus {
-    axes: Axes;
-    buttons: { start: number; stop: number };
+/*      ACTIONS     */
+export interface UpdateSensorData {
+    type:"UpdateSensorData"
+    voltage:Array<number>;
+    current:Array<number>;
+    temperature:Array<number>;
 }
 
-export interface Axes {
-    x: number;
-    y: number;
-    om: number;
-}
+/*      TYPES     */
+export type Action =  UpdateSensorData;
+export type Connectable = SensorStatus;

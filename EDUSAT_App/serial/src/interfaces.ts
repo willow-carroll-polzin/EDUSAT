@@ -1,18 +1,9 @@
 import SerialPort from "serialport";
 /*      SYSTEM STATES     */
-export interface RobotStatus {
-    connected: boolean;
-    voltage: number;
-}
-
 export interface SensorStatus {
-    selection: {heartRate: boolean, temperature: boolean};
-    values: {heartRate: number, temperature: number};
-}
-
-export interface DrivetrainStatus {
-    axes: Axes;
-    toggle: { start: number; stop: number };
+    voltage:Array<number>;
+    current:Array<number>;
+    temperature: Array<number>;
 }
 
 export interface ComPort {
@@ -20,37 +11,17 @@ export interface ComPort {
     manu: string
 }
 
-export interface Axes {
-    x: number;
-    y: number;
-    om: number;
-}
-
 export interface State {
-    robot: RobotStatus;
     sensor: SensorStatus;
-    drive: DrivetrainStatus;
     port?: SerialPort;
 }
 
 /*      ACTIONS     */
 export interface UpdateSensorData {
-    type:"UpdateSensorData";
-    selection: {heartRate: boolean, temperature: boolean};
-    values: {heartRate: number, temperature: number};
-}
-
-export interface UpdateRobotData {
-    type:"UpdateRobotData";
-    connected: boolean;
-    voltage: number;
-
-}
-
-export interface UpdateDrivetrainData {
-    type: "UpdateDrivetrainData";
-    axes: Axes;
-    toggle: { start: number; stop: number };
+    type:"UpdateSensorData"
+    voltage:Array<number>;
+    current:Array<number>;
+    temperature:Array<number>;
 }
 
 export interface UpdateComPort {
@@ -59,5 +30,5 @@ export interface UpdateComPort {
 }
 
 /*      TYPES     */
-export type Action =  UpdateRobotData | UpdateSensorData | UpdateDrivetrainData | UpdateComPort;
-export type Connectable = RobotStatus | DrivetrainStatus | SensorStatus;
+export type Action =  UpdateSensorData | UpdateComPort;
+export type Connectable = SensorStatus;
