@@ -2,7 +2,7 @@
     "name": "rahp-server",
     "version": "1.0.0",
     "type": "module",
-    "description": "RAHP server",
+    "description": "EDUSAT server",
     "main": "index.js",
     "author": "Max Polzin",
     "license": "ISC",
