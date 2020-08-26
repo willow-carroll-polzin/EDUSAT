@@ -55,8 +55,9 @@ const sendSensorData = (sensor: SensorStatus, socket: SocketIOClient.Socket): SE
 //var serialPort = new SerialPort("NO CONNECTION");
 const initial_State: State = {
     sensor: {
-        selection: { heartRate: false, temperature: false },
-        values: { heartRate: 0, temperature: 0 },
+        voltage: [0, 0, 0, 0, 0, 0],
+        current: [0, 0, 0, 0, 0, 0],
+        temperature: [0, 0, 0, 0],
     },
 };
 const store = createStore(reducer);
@@ -69,36 +70,13 @@ const unsubscribe = store.subscribe(() => {
 
 setInterval(sendSensorData(store.getState().sensor, socket), 1000 / 30);
 
-//update game data action creator, returns a Action
-function UpdateDrivetrainData(drive: DrivetrainStatus): UpdateDrivetrainData {
-    return {
-        axes: { x: drive.axes.x, y: drive.axes.y, om: drive.axes.om },
-        toggle: {
-            start: drive.toggle.start,
-            stop: drive.toggle.stop,
-        },
-        type: "UpdateDrivetrainData",
-    };
-}
-
 //update sensor data action creator, returns a Action
 function UpdateSensorData(sensor: SensorStatus): UpdateSensorData {
     return {
-        selection: {
-            heartRate: sensor.selection.heartRate,
-            temperature: sensor.selection.temperature,
-        },
-        values: { heartRate: sensor.values.heartRate, temperature: sensor.values.temperature },
+        voltage: sensor.voltage,
+        current: sensor.current,
+        temperature: sensor.temperature,
         type: "UpdateSensorData",
-    };
-}
-
-//update robot data action creator, returns a Action
-function UpdateRobotData(robot: RobotStatus): UpdateRobotData {
-    return {
-        connected: robot.connected,
-        voltage: robot.voltage,
-        type: "UpdateRobotData",
     };
 }
 
@@ -117,8 +95,9 @@ function reducer(state: State = initial_State, action: Action): State {
             ...state,
             sensor: {
                 ...state.sensor,
-                selection: action.selection,
-                values: { ...action.values, temperature: Math.random() * 5 },
+                voltage: action.voltage,
+                current: action.current,
+                temperature: action.temperature,
             },
         };
         return newState;
