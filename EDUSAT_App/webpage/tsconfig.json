@@ -1,0 +1,14 @@
+{
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.tsx"
+    ],
+    "compilerOptions": {
+        "strict": true,
+        "moduleResolution": "node",
+        "target": "ESNext",
+        "jsx": "react",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true
+    }
+}
