@@ -26,12 +26,6 @@ function setupSocketEvents(port: SerialPort): SerialPort {
 
             sendCommands(data, port);
         });
-
-        socket.on("sensorRequest", function () {
-            //Process is: RX req -> Query MCU -> Record MCU -> UpdateSensorData -> emit update
-            const x = sendSensorData(store.getState().sensor, socket);
-            x();
-        });
     });
     //Log reconnect attempts
     socket.on("reconnect", (e: number) => {
@@ -46,7 +40,7 @@ type SEND = () => void; //IO type
 //Send sensor information
 const sendSensorData = (sensor: SensorStatus, socket: SocketIOClient.Socket): SEND => {
     //Instance of IO type
-    const send = () => socket.emit("sensorResponse", sensor);
+    const send = () => socket.emit("sensorData", sensor);
     return send;
 };
 
@@ -68,6 +62,7 @@ const unsubscribe = store.subscribe(() => {
     x();
 }); //When state updates can subscribe the store here
 
+//Send sensor data at ~30 Hz
 setInterval(sendSensorData(store.getState().sensor, socket), 1000 / 30);
 
 //update sensor data action creator, returns a Action

@@ -19,22 +19,16 @@ server.on("connect", (socket) => {
     console.log("Client is connected");
     socket.send("Hello from server!");
 
-    //REMOTE CLIENT MESSAGES:
+    //WEBPAGE CLIENT MESSAGES:
     //Check for msg from remote-client
     socket.on("command", function (data: string) {
         socket.broadcast.emit("command", data)
         console.log(curCmd)
     })
 
-    //Check for msg from obc-client
-    socket.on("sensorRequest", function () {
-        //console.log("sensorRequest")
-        socket.broadcast.emit("sensorRequest")
-    });
-        
-    //OBC CLIENT MESSAGES:
+    //SERIAL CLIENT MESSAGES:
     //Check for msg from remote-client
-    socket.on("sensorResponse", function (data: SensorStatus) {//TODO: Explicitly list the type
-        socket.broadcast.emit("sensorResponse",data)
+    socket.on("sensorData", function (data: SensorStatus) {//TODO: Explicitly list the type
+        socket.broadcast.emit("sensorData",data)
     });
 });
