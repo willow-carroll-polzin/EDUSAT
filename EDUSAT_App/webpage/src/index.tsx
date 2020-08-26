@@ -76,10 +76,9 @@ socket.on("connect", () => {
     //Check for current data from sensors
     //Note that this OBC client only listens for sensor data,
     //it does not actively request it like the remote client
-    socket.on("sensorResponse", function (data: SensorStatus) {
-        //TODO: Explicitly list the type
-        console.log("webpage has received sensor response");
-        console.log(data); //DO SOMETHING WITH THE DATA!
+    socket.on("sensorData", function (data: SensorStatus) {
+        console.log("webpage has received sensor data");
+        console.log(data);
         store.dispatch(UpdateSensorData(data));
     });
 });
