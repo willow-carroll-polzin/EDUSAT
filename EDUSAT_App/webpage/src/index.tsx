@@ -68,7 +68,7 @@ function addData(chart: Chart, label: string, data: number) {
         });
     chart.update();
 }
-const chartElement = document.getElementById("myChart");
+const chartElement = document.getElementById("voltageChart");
 ReactDOM.render(
     <Provider store={store}>
         <ChartConnected />
@@ -78,7 +78,7 @@ ReactDOM.render(
 );
 
 /*  SOCKET SETUP  */
-const socket = io("http://192.168.0.25:3000/"); //Port for client
+const socket = io("http://192.168.0.45:3000/"); //Port for client
 
 /*   SOCKET FUNCTIONS  */
 //Log connections
@@ -95,13 +95,31 @@ socket.on("connect", () => {
         console.log(data);
         today = new Date();
         addData(
-            myChart,
+            voltageChart,
             today.getHours().toString().padStart(2, "0") +
                 ":" +
                 today.getMinutes().toString().padStart(2, "0") +
                 ":" +
                 today.getSeconds().toString().padStart(2, "0"),
             data.voltage[2]
+        );
+        addData(
+            currentChart,
+            today.getHours().toString().padStart(2, "0") +
+                ":" +
+                today.getMinutes().toString().padStart(2, "0") +
+                ":" +
+                today.getSeconds().toString().padStart(2, "0"),
+            data.current[2]
+        );
+        addData(
+            tempChart,
+            today.getHours().toString().padStart(2, "0") +
+                ":" +
+                today.getMinutes().toString().padStart(2, "0") +
+                ":" +
+                today.getSeconds().toString().padStart(2, "0"),
+            data.temperature[2]
         );
         store.dispatch(UpdateSensorData(data));
     });
@@ -113,17 +131,9 @@ socket.on("reconnect", (e: number) => {
     socket.send("Number of reconnects: " + e);
 });
 
-/*       APP EVENT HANDLERS      */
-//updatesensordata action creator, returns a Action
-function UpdateSensorData(sensors: SensorStatus): UpdateSensorData {
-    return {
-        voltage: sensors.voltage,
-        current: sensors.current,
-        temperature: sensors.temperature,
-        type: "UpdateSensorData",
-    };
-}
-var myChart = new Chart("myChart", {
+/*       DATA DISPLAY      */
+//Create voltage graph
+var voltageChart = new Chart("voltageChart", {
     type: "line",
     data: {
         labels: [],
@@ -146,6 +156,67 @@ var myChart = new Chart("myChart", {
         },
     },
 });
+
+//Create current graph
+var currentChart = new Chart("currentChart", {
+    type: "line",
+    data: {
+        labels: [],
+        datasets: [
+            {
+                data: [],
+                fill: true,
+            },
+        ],
+    },
+    options: {
+        scales: {
+            yAxes: [
+                {
+                    ticks: {
+                        beginAtZero: true,
+                    },
+                },
+            ],
+        },
+    },
+});
+
+//Create voltage graph
+var tempChart = new Chart("tempChart", {
+    type: "line",
+    data: {
+        labels: [],
+        datasets: [
+            {
+                data: [],
+                fill: true,
+            },
+        ],
+    },
+    options: {
+        scales: {
+            yAxes: [
+                {
+                    ticks: {
+                        beginAtZero: true,
+                    },
+                },
+            ],
+        },
+    },
+});
+
+/*       APP EVENT HANDLERS      */
+//updatesensordata action creator, returns a Action
+function UpdateSensorData(sensors: SensorStatus): UpdateSensorData {
+    return {
+        voltage: sensors.voltage,
+        current: sensors.current,
+        temperature: sensors.temperature,
+        type: "UpdateSensorData",
+    };
+}
 //Reduce the action that was dispatched
 function reducer(state: State = initial_State, action: Action): State {
     if (action.type === "UpdateSensorData") {

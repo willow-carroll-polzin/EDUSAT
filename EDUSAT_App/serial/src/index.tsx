@@ -12,7 +12,7 @@ import {
 } from "./interfaces";
 
 /*  SOCKET SETUP  */
-const socket = io("http://192.168.0.25:3000/"); //SocketIO client
+const socket = io("http://192.168.0.45:3000/"); //SocketIO client
 
 /*      HANDLE SOCKET EVENTS    */
 //Handle connections
