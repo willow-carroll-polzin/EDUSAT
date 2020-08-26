@@ -52,7 +52,7 @@ const ChartBox = (state:State) => (
 
 //THIS SECTION BELOW IS WHAT IS MAKING IT MESS UP
 const ctx = new CanvasRenderingContext2D();
-
+/*
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -88,7 +88,7 @@ var myChart = new Chart(ctx, {
             }]
         }
     }
-});
+});*/
 
 
 //Export new functions that connect our html returning functions to our store

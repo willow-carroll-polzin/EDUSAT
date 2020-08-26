@@ -12,7 +12,7 @@ import { devToolsEnhancer, composeWithDevTools } from "redux-devtools-extension"
 //Initial state of redux store
 const initial_State: State = {
     sensors: {
-        voltage: [0, 0, 0, 0, 0, 0],
+        voltage: [1, 2, 3, 4, 5, 6],
         current: [0, 0, 0, 0, 0, 0],
         temperature: [0, 0, 0, 0],
     },
