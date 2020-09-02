@@ -12,6 +12,10 @@
 #define POLE_TIME 1000 //System polling time
 #define CURRENT_GAIN 2 //Amount of gain applied to measued "current"
 
+/*   LOOP Variables  */
+const unsigned long interval = 1000;
+static unsigned long currentMillis;
+
 /*   MUX variables   */
 //Mux control/signal digital pins
 int c0 = 2;
@@ -108,7 +112,7 @@ void sendStatus(float V[V_SENSE_SIZE], float I[I_SENSE_SIZE], float T[T_SENSE_SI
     }
     Serial.print("T");
     for (int i =0; i < T_SENSE_SIZE; i++){
-      Serial.print("25");
+      Serial.print(T[i]);
       Serial.print(",");
     }
     Serial.println("F");
@@ -134,22 +138,23 @@ float tempCal(float curValue) {
     //Calculate equivalent resistance of thermistor
     Rt = thermRef * ((Vin / curValue) - 1);                  //curValue is the Vout (the measured output voltage from thermistor)
     temp = (1 / ((1 / T0) + (log(Rt / R0) / B))) - 273.15; //In C
-    return (temp);
+    //return (temp);
+    return (curValue);
 }
 
 //Function to take in a input voltage and output current across shunt
 float currentCal(float curValue) {
     //Calculate the actual current measured (MAX4080 outputs a voltage equal to measured current)
-    return (curValue / CURRENT_GAIN);
+    return (curValue*1.0/CURRENT_GAIN);
 }
 
 //Function to read in a input voltage and normalize it based on voltage divider
 float voltageCal(float curValue, int i) {
     float volt = 0;
     //If the voltage has been divided, recalculate it
-    if (i == 0) {
-        return(volt); //TODO: determine which voltages are divided
-    }
+    //if (i == 0) {
+    //    return(volt); //TODO: determine which voltages are divided
+    //}
     return (curValue);
 }
 
@@ -190,6 +195,8 @@ void setup() {
 //////////////////////////////////////////////////////////////////////////
 //Sensing loop:
 void loop() {
+
+    if (millis() - currentMillis >= interval){
     int v,j,t = 0; //Voltage, Current, Temperature counters
     //Loop through and read all 16 channels from MUX
     for (int i = 0; i < MUX_SIZE; i++) {
@@ -204,7 +211,7 @@ void loop() {
         Serial.print(curVal);
             TEST PRINTS     */
 
-        curVal = 125.2;
+        curVal = readMux(i);
         
         if (i == 0 || i == 2 || i == 4 || i == 6 || i == 8 || i == 10) { //If current channel is measuring voltage (V)
             V[v] = voltageCal(curVal, i);
@@ -225,6 +232,8 @@ void loop() {
     //Serial.println(V[0]);
     //Serial.println(I[0]);
     sendStatus(V,I,T);
+    currentMillis=millis();
+    }
 } 
 
 //////////////////////////////////////////////////////////////////////////
