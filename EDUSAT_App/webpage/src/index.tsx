@@ -11,7 +11,7 @@ import Chart from "chart.js";
 
 /*TIME DATA SETUP*/
 var today = new Date();
-
+const MAX_DATA_SET_LENGTH = 50;
 /*  REDUX SETUP  */
 //Initial state of redux store
 const initial_State: State = {
@@ -53,7 +53,6 @@ ReactDOM.render(
     //Provide the 'SensorsConnected' React component with access to the store
     <Provider store={store}>
         <LSidebarConnected />
-        <div>LEFT SIDEBAR RENDER</div>
     </Provider>,
     lSideBarElement
 );
@@ -62,9 +61,24 @@ function addData(chart: Chart, label: string, data: number) {
     if (chart.data.labels) {
         chart.data.labels.push(label);
     }
-    if (chart.data.datasets)
+    if (chart.data.datasets) {
+
         chart.data.datasets.forEach((dataset) => {
             if (dataset.data) dataset.data.push(data);
+        });
+        if (chart.data.datasets[0].data !== undefined && chart.data.datasets[0].data.length > MAX_DATA_SET_LENGTH) {
+            chart.data.datasets[0].data.shift();
+            chart.data.labels?.shift();
+        }
+
+    }
+    chart.update({duration:0});
+}
+function removeData(chart: Chart) {
+    if (chart.data.labels) chart.data.labels.pop();
+    if (chart.data.datasets)
+        chart.data.datasets.forEach((dataset) => {
+            if (dataset.data) dataset.data.pop();
         });
     chart.update();
 }
@@ -78,7 +92,7 @@ ReactDOM.render(
 );
 
 /*  SOCKET SETUP  */
-const socket = io("http://192.168.0.45:3000/"); //Port for client
+const socket = io("http://192.168.0.25:3000/"); //Port for client
 
 /*   SOCKET FUNCTIONS  */
 //Log connections
@@ -94,6 +108,7 @@ socket.on("connect", () => {
         console.log("webpage has received sensor data");
         console.log(data);
         today = new Date();
+        store.dispatch(UpdateSensorData(data))
         addData(
             voltageChart,
             today.getHours().toString().padStart(2, "0") +
@@ -139,12 +154,45 @@ var voltageChart = new Chart("voltageChart", {
         labels: [],
         datasets: [
             {
+                label:"Temperature #1",
+                borderColor:"red",
                 data: [],
-                fill: true,
+                fill: false,
+            },
+            {
+                label:"Temperature #2",
+                borderColor:"orange",
+                data: [],
+                fill: false,
+            },
+            {
+                label:"Temperature #3",
+                borderColor:"green",
+                data: [],
+                fill: false,
+            },
+            {
+                label:"Temperature #4",
+                borderColor:"blue",
+                data: [],
+                fill: false,
+            },
+            {
+                label:"Temperature #5",
+                borderColor:"purple",
+                data: [],
+                fill: false,
+            },
+            {
+                label:"Temperature #6",
+                borderColor:"black",
+                data: [],
+                fill: false,
             },
         ],
     },
     options: {
+        maintainAspectRatio: false,
         scales: {
             yAxes: [
                 {
@@ -164,12 +212,45 @@ var currentChart = new Chart("currentChart", {
         labels: [],
         datasets: [
             {
+                label: "Current #1",
+                borderColor:"red",
                 data: [],
-                fill: true,
+                fill: false,
+            },
+            {
+                label: "Current #2",
+                borderColor:"orange",
+                data:[],
+                fill: false,
+            },
+            {
+                label: "Current #3",
+                borderColor:"green",
+                data:[],
+                fill: false,
+            },
+            {
+                label: "Current #4",
+                borderColor:"blue",
+                data:[],
+                fill: false,
+            },
+            {
+                label: "Current #5",
+                borderColor:"purple",
+                data:[],
+                fill: false,
+            },
+            {
+                label: "Current #6",
+                borderColor:"black",
+                data:[],
+                fill: false,
             },
         ],
     },
     options: {
+        maintainAspectRatio: false,
         scales: {
             yAxes: [
                 {
@@ -189,12 +270,33 @@ var tempChart = new Chart("tempChart", {
         labels: [],
         datasets: [
             {
+                label:"Temperature #1",
+                borderColor:"red",
                 data: [],
-                fill: true,
+                fill: false,
+            },
+            {
+                label:"Temperature #2",
+                borderColor:"blue",
+                data: [],
+                fill: false,
+            },
+            {
+                label:"Temperature #3",
+                borderColor:"green",
+                data: [],
+                fill: false,
+            },
+            {
+                label:"Temperature #4",
+                borderColor:"orange",
+                data: [],
+                fill: false,
             },
         ],
     },
     options: {
+        maintainAspectRatio: false,
         scales: {
             yAxes: [
                 {
@@ -220,13 +322,14 @@ function UpdateSensorData(sensors: SensorStatus): UpdateSensorData {
 //Reduce the action that was dispatched
 function reducer(state: State = initial_State, action: Action): State {
     if (action.type === "UpdateSensorData") {
+        console.log("in rxr")
         const newState: State = {
             ...state,
             sensors: {
                 ...state.sensors,
-                voltage: state.sensors.voltage,
-                current: state.sensors.current,
-                temperature: state.sensors.temperature,
+                voltage: action.voltage,
+                current: action.current,
+                temperature: action.temperature,
             },
         };
 

@@ -12,7 +12,7 @@ import {
 } from "./interfaces";
 
 /*  SOCKET SETUP  */
-const socket = io("http://192.168.0.45:3000/"); //SocketIO client
+const socket = io("http://192.168.0.25:3000/"); //SocketIO client
 
 /*      HANDLE SOCKET EVENTS    */
 //Handle connections
@@ -63,7 +63,7 @@ const unsubscribe = store.subscribe(() => {
 }); //When state updates can subscribe the store here
 
 //Send sensor data at ~30 Hz
-setInterval(sendSensorData(store.getState().sensor, socket), 1000 / 30);
+setInterval(sendSensorData(store.getState().sensor, socket), 1000 / 1);
 
 //update sensor data action creator, returns a Action
 function UpdateSensorData(sensor: SensorStatus): UpdateSensorData {
@@ -234,6 +234,7 @@ function portReading(port: SerialPort): SerialPort {
                         }
                         case FOOTER: {
                             dataIndex = 0;
+                            console.log("DATA IS")
                             console.log(newSensorData);
                             store.dispatch(UpdateSensorData(newSensorData));
                             return;

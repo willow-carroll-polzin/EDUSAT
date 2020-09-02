@@ -8,21 +8,27 @@
     </head>
 
     <div class="flex-container">
-        <div class="robot" id="lSidebar">
-
-        </div>
+        <div class="left_column">
+        <div id="lSidebar"></div>
+        <div class="sensors" id="sensorStatus"></div>
+    </div>
 
         <div class="main">
-            <canvas id="voltageChart"></canvas>
-            <canvas id="currentChart"></canvas>
-            <canvas id="tempChart"></canvas>
-           
-            <div>DATA STREAM</div>
-            <div class="sensors" id="sensorStatus"></div>
+            <div class="chart">
+                <canvas id="voltageChart"></canvas>
+            </div>
+            <div class="chart">
+                <canvas id="currentChart" maintainAspectRatio="false"></canvas>
+            </div>
+            <div class="chart">
+                <canvas id="tempChart"></canvas>
+            </div>
 
+            <div>DATA STREAM</div>
         </div>
 
-        <div class="gamepad" id="rSidebar">
+        <div class="right_column">
+            <div id="rSidebar"></div>
 
         </div>
     </div>
