@@ -47,11 +47,13 @@ const sendSensorData = (sensor: SensorStatus, socket: SocketIOClient.Socket): SE
 /*    APP EVENT HANDLERS    */
 //Redux dispatch store setup
 //var serialPort = new SerialPort("NO CONNECTION");
+
+//somehow this initial state is getting pushed to the serial port
 const initial_State: State = {
     sensor: {
         voltage: [0, 0, 0, 0, 0, 0],
         current: [0, 0, 0, 0, 0, 0],
-        temperature: [0, 0, 0, 0],
+        temperature: [1, 1, 1, 1],
     },
 };
 const store = createStore(reducer);
@@ -63,7 +65,7 @@ const unsubscribe = store.subscribe(() => {
 }); //When state updates can subscribe the store here
 
 //Send sensor data at ~30 Hz
-setInterval(sendSensorData(store.getState().sensor, socket), 1000 / 1);
+//setInterval(sendSensorData(store.getState().sensor, socket), 1000 / 1);
 
 //update sensor data action creator, returns a Action
 function UpdateSensorData(sensor: SensorStatus): UpdateSensorData {
@@ -186,7 +188,7 @@ function portReading(port: SerialPort): SerialPort {
             let newSensorData: SensorStatus = {
                 voltage: [0, 0, 0, 0, 0, 0],
                 current: [0, 0, 0, 0, 0, 0],
-                temperature: [0, 0, 0, 0],
+                temperature: [1, 1, 1, 1],
             };
 
             //Check if the received data has a valid format that we can read and then parse it

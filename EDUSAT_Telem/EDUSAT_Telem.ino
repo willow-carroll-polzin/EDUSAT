@@ -15,6 +15,7 @@
 /*   LOOP Variables  */
 const unsigned long interval = 1000;
 static unsigned long currentMillis;
+unsigned long int counter = 0;
 
 /*   MUX variables   */
 //Mux control/signal digital pins
@@ -197,6 +198,8 @@ void setup() {
 void loop() {
 
     if (millis() - currentMillis >= interval){
+          counter+=1;
+      //yarn builSerial.println(counter);
     int v,j,t = 0; //Voltage, Current, Temperature counters
     //Loop through and read all 16 channels from MUX
     for (int i = 0; i < MUX_SIZE; i++) {

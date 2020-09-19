@@ -11,6 +11,7 @@ import Chart from "chart.js";
 
 /*TIME DATA SETUP*/
 var today = new Date();
+var counter = 0;
 const MAX_DATA_SET_LENGTH = 10;
 /*  REDUX SETUP  */
 //Initial state of redux store
@@ -59,6 +60,7 @@ ReactDOM.render(
 
 //update addData function to take a specific dataset to add the data to
 function addData(chart: Chart, label: string, data: number, dataset: number) {
+    console.log("adding data that is: "+data)
     if (chart.data.datasets) {
         if (dataset === 0) {
             if (chart.data.datasets[0].data !== undefined && chart.data.datasets[0].data.length > MAX_DATA_SET_LENGTH) {
@@ -117,9 +119,12 @@ socket.on("connect", () => {
     socket.on("sensorData", function (data: SensorStatus) {
         console.log("webpage has received sensor data");
         console.log(data);
+        data.current=[Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random()];
+        data.voltage=[Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random()];
         today = new Date();
         store.dispatch(UpdateSensorData(data));
         for (var i: number = 0; i < 6; i++) {
+            counter++;
             addData(
                 voltageChart,
                 today.getHours().toString().padStart(2, "0") +
@@ -127,7 +132,8 @@ socket.on("connect", () => {
                     today.getMinutes().toString().padStart(2, "0") +
                     ":" +
                     today.getSeconds().toString().padStart(2, "0"),
-                data.voltage[i],
+                //i*(counter),
+                    data.voltage[i],
                 i
             );
         }
@@ -139,7 +145,8 @@ socket.on("connect", () => {
                     today.getMinutes().toString().padStart(2, "0") +
                     ":" +
                     today.getSeconds().toString().padStart(2, "0"),
-                data.current[i],
+                //i*Math.random(),
+                    data.current[i],
                 i
             );
         }
@@ -155,7 +162,6 @@ socket.on("connect", () => {
                 i
             );
         }
-        store.dispatch(UpdateSensorData(data));
     });
 });
 
