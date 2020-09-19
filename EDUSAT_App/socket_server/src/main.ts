@@ -13,11 +13,14 @@ const server = io.listen(httpserver); //SocketIO server
 
 let curCmd: string; //Command to send to system
 let curData: SensorStatus; //Current sensor data
-
+let filePath = getFileName(); //Create filename on startup
+let fileStarted:boolean=false;
 /*      HANDLE SOCKET EVENTS    */
 server.on("connect", (socket) => {
     console.log("Client is connected");
     socket.send("Hello from server!");
+    let ws = fs.createWriteStream(path.resolve("src",filePath),{flags:"w"});
+    csv.writeToStream(ws,[{}],{headers:["Time","V1","V2","V3","V4","V5","V6","I1","I2","I3","I4","I5","I6","T1","T2","T3","T4"],includeEndRowDelimiter:true});
 
     //WEBPAGE CLIENT MESSAGES:
     //Check for msg from remote-client
@@ -31,22 +34,23 @@ server.on("connect", (socket) => {
     socket.on("sensorData", function (data: SensorStatus) {
         //TODO: Explicitly list the type
         curData = data;
-        writeData(curData, getFileName());
+        writeData(curData, filePath);
+        fileStarted=true;
         socket.broadcast.emit("sensorData", data);
     });
 });
 
 /*      WRITE DATA TO CSV       */
-let sensors: SensorStatus = {
+/* let sensors: SensorStatus = {
     voltage: [1, 2, 3, 4, 5, 6],
     current: [0, 1, 0, 10, 0, 0],
     temperature: [5, 0, 3, 0],
 };
 curData = sensors;
-writeData(curData, getFileName());
+writeData(curData, getFileName()); */
 
 function getFileName() {
-    let filepath = Date.now().toString() + "_EDUSAT_Telemetry";
+    let filepath = Date.now().toString() + "_EDUSAT_Telemetry.csv";
     return filepath
 }
 
@@ -59,7 +63,7 @@ function writeData(data: SensorStatus, filepath: string) {
     let year = date_ob.getFullYear();
 
     //Write current data in a row format
-    let row: string[] = new Array(16);
+    let row: string[] = new Array(18);
     console.log(data.temperature[0].toString());
     for (let i = 0; i < 17; i++) {
         if (i == 0) {
@@ -77,8 +81,30 @@ function writeData(data: SensorStatus, filepath: string) {
     }
     let rows: string[][] = [row];
 
+    let testrows=[{
+        Time:month.toString()+"/"+day.toString()+"/"+year.toString(),
+        V1:data.voltage[0],
+        V2:data.voltage[1],
+        V3:data.voltage[2],
+        V4:data.voltage[3],
+        V5:data.voltage[4],
+        V6:data.voltage[5],
+        I1:data.current[0],
+        I2:data.current[1],
+        I3:data.current[2],
+        I4:data.current[3],
+        I5:data.current[4],
+        I6:data.current[5],
+        T1:data.temperature[0],
+        T2:data.temperature[1],
+        T3:data.temperature[2],
+        T4:data.temperature[3],
+    }]
     //Write current data to the csv on the given path
-    csv.writeToPath(path.resolve("src", filepath), rows)
-        .on("error", (err) => console.error(err))
-        .on("finish", () => console.log("Done writing."));
+    // csv.writeToPath(path.resolve("src", filepath), rows,{flag:"a"})
+    //     .on("error", (err) => console.error(err))
+    //     .on("finish", () => console.log("Done writing."));
+    let ws = fs.createWriteStream(path.resolve("src",filepath),{flags:"a"});
+    csv.writeToStream(ws,testrows,{includeEndRowDelimiter:true});
+    
 }
