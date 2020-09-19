@@ -14,10 +14,14 @@
         "setup": "yarn install"
     },
     "devDependencies": {
+        "@types/node": "14.11.1",
         "@types/socket.io": "2.1.8",
         "typescript": "3.9.6"
     },
     "dependencies": {
+        "@fast-csv/format": "^4.3.1",
+        "@fast-csv/parse": "^4.3.2",
+        "fast-csv": "4.3.2",
         "socket.io": "2.3.0"
     }
 }
