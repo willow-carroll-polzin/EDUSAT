@@ -7,6 +7,7 @@ export interface SensorStatus {
 
 export interface State {
     sensors: SensorStatus;
+    port: String;
 }
 
 /*      ACTIONS     */
@@ -17,7 +18,12 @@ export interface UpdateSensorData {
     temperature:Array<number>;
 }
 
+export interface UpdateComPortData{
+    type:"UpdateComPortData"
+    port:String;
+}
+
 /*      TYPES     */
-export type Action = UpdateSensorData
+export type Action = UpdateSensorData | UpdateComPortData;
 export type Connectable = SensorStatus;
 

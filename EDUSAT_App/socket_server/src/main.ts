@@ -31,4 +31,7 @@ server.on("connect", (socket) => {
     socket.on("sensorData", function (data: SensorStatus) {//TODO: Explicitly list the type
         socket.broadcast.emit("sensorData",data)
     });
+    socket.on("stateData", function(data:String){
+        socket.broadcast.emit("stateData", data)
+    })
 });

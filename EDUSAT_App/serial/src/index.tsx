@@ -1,6 +1,8 @@
 /*  REQUIRED LIBRARIES  */
 import io from "socket.io-client";
 import SerialPort from "serialport";
+import generate from "csv-generate";
+import fs from "fs";
 import { createStore } from "redux";
 import {
     SensorStatus,
@@ -10,6 +12,17 @@ import {
     UpdateSensorData,
     UpdateComPort,
 } from "./interfaces";
+
+
+let file = fs.createWriteStream("test.csv",{flags:"a"});
+generate({
+    columns:["test","test2"],
+    length: 1,
+    delimiter:",",
+
+    
+
+}).pipe(file)
 
 /*  SOCKET SETUP  */
 const socket = io("http://192.168.0.25:3000/"); //SocketIO client
@@ -40,9 +53,15 @@ type SEND = () => void; //IO type
 //Send sensor information
 const sendSensorData = (sensor: SensorStatus, socket: SocketIOClient.Socket): SEND => {
     //Instance of IO type
+    console.log("sending sensor data")
     const send = () => socket.emit("sensorData", sensor);
     return send;
 };
+const sendState = (port: String|undefined, socket: SocketIOClient.Socket): SEND => {
+    console.log("sending port")
+    const send =() => socket.emit("stateData", port)
+    return send;
+}
 
 /*    APP EVENT HANDLERS    */
 //Redux dispatch store setup
@@ -58,14 +77,19 @@ const initial_State: State = {
 };
 const store = createStore(reducer);
 
-//Subscribe to store to get state updates and send them to the server
+//Subscribe to store to get state updates and send them to the server -> THIS IS NOT RUNNING IN DEMO BECAUSE THE STATE NEVER CHANGES
 const unsubscribe = store.subscribe(() => {
     const x = sendSensorData(store.getState().sensor, socket);
     x();
+    var ourPort = store.getState().port;
+    if (ourPort !== undefined){
+        var path = ourPort.path;
+    }else{
+        var path = "empty"
+    }
+    const y = sendState(path,socket);
+    y();
 }); //When state updates can subscribe the store here
-
-//Send sensor data at ~30 Hz
-//setInterval(sendSensorData(store.getState().sensor, socket), 1000 / 1);
 
 //update sensor data action creator, returns a Action
 function UpdateSensorData(sensor: SensorStatus): UpdateSensorData {
@@ -150,6 +174,10 @@ SerialPort.list()
     })
     .then((port) => {
         setupSocketEvents(port);
+        return port;
+    }).
+    then((port)=>{
+        sendState(port.path,socket);
         return port;
     })
     .catch((err) => {

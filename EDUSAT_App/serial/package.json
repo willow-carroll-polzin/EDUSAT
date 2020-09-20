@@ -19,6 +19,8 @@
         "typescript": "3.9.6"
     },
     "dependencies": {
+        "csv-generate": "^3.2.4",
+        "csv-writer": "^1.6.0",
         "package.json": "^2.0.1",
         "redux": "4.0.5",
         "serialport": "9.0.0",

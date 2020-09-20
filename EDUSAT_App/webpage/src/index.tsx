@@ -4,10 +4,11 @@ import ReactDOM from "react-dom";
 import io from "socket.io-client";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import { State, SensorStatus, UpdateSensorData, Action } from "./interfaces";
-import { SensorsConnected, RSidebarConnected, LSidebarConnected, ChartConnected } from "./App";
+import { State, SensorStatus, UpdateSensorData, UpdateComPortData, Action } from "./interfaces";
+import { SensorsConnected, RSidebarConnected, LSidebarConnected, ChartConnected, DownloaderConnected } from "./App";
 import { devToolsEnhancer, composeWithDevTools } from "redux-devtools-extension";
 import Chart from "chart.js";
+
 
 /*TIME DATA SETUP*/
 var today = new Date();
@@ -21,6 +22,7 @@ const initial_State: State = {
         current: [0, 0, 0, 0, 0, 0],
         temperature: [0, 0, 0, 0],
     },
+    port: "",
 };
 
 //Create redux store
@@ -48,6 +50,15 @@ ReactDOM.render(
     rSideBarElement
 );
 
+const downloadElement = document.getElementById("downloader")
+
+ReactDOM.render(
+    <Provider store={store}>
+        < DownloaderConnected />
+    </Provider>,
+    downloadElement
+);
+
 const lSideBarElement = document.getElementById("lSidebar");
 
 ReactDOM.render(
@@ -60,7 +71,7 @@ ReactDOM.render(
 
 //update addData function to take a specific dataset to add the data to
 function addData(chart: Chart, label: string, data: number, dataset: number) {
-    console.log("adding data that is: "+data)
+    console.log("adding data that is: " + data);
     if (chart.data.datasets) {
         if (dataset === 0) {
             if (chart.data.datasets[0].data !== undefined && chart.data.datasets[0].data.length > MAX_DATA_SET_LENGTH) {
@@ -116,11 +127,14 @@ socket.on("connect", () => {
     //Check for current data from sensors
     //Note that this OBC client only listens for sensor data,
     //it does not actively request it like the remote client
+    socket.on("stateData", function (data: String) {
+        store.dispatch(UpdateComPortData(data));
+    });
     socket.on("sensorData", function (data: SensorStatus) {
         console.log("webpage has received sensor data");
         console.log(data);
-        data.current=[Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random()];
-        data.voltage=[Math.random(),Math.random(),Math.random(),Math.random(),Math.random(),Math.random()];
+        data.current = [Math.random(), Math.random(), Math.random(), Math.random(), Math.random(), Math.random()];
+        data.voltage = [Math.random(), Math.random(), Math.random(), Math.random(), Math.random(), Math.random()];
         today = new Date();
         store.dispatch(UpdateSensorData(data));
         for (var i: number = 0; i < 6; i++) {
@@ -133,7 +147,7 @@ socket.on("connect", () => {
                     ":" +
                     today.getSeconds().toString().padStart(2, "0"),
                 //i*(counter),
-                    data.voltage[i],
+                data.voltage[i],
                 i
             );
         }
@@ -146,7 +160,7 @@ socket.on("connect", () => {
                     ":" +
                     today.getSeconds().toString().padStart(2, "0"),
                 //i*Math.random(),
-                    data.current[i],
+                data.current[i],
                 i
             );
         }
@@ -360,6 +374,13 @@ function UpdateSensorData(sensors: SensorStatus): UpdateSensorData {
         type: "UpdateSensorData",
     };
 }
+
+function UpdateComPortData(port: String): UpdateComPortData {
+    return {
+        port: port,
+        type: "UpdateComPortData",
+    };
+}
 //Reduce the action that was dispatched
 function reducer(state: State = initial_State, action: Action): State {
     if (action.type === "UpdateSensorData") {
@@ -375,7 +396,14 @@ function reducer(state: State = initial_State, action: Action): State {
         };
 
         return newState;
+    } else if (action.type === "UpdateComPortData") {
+        const newState: State = {
+            ...state,
+            port: action.port,
+        };
+        return newState;
+    } else {
+        return state;
     }
-    return state;
 }
 export default reducer;
