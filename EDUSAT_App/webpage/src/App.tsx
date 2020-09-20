@@ -57,9 +57,9 @@ const RSidebar = (state: State) => (
     <React.Fragment>
         <div>FILE MANAGER</div>
         <p>
-            The system has detected an arduino on {state.port}, and has connected to it.
+            Detected arduino on {state.port}.
             <br></br>
-            If this is not the serial port you would like to connect to, please specify an alternate port below:
+            To connect to an alternate port, specify below:
         </p>
     </React.Fragment>
 );
@@ -144,33 +144,42 @@ const makeCols = () => {
 var datas = { time: Date.now(), v1: 0, v2: 0, v3: 0, v4: 0, v5: 0, v6: 0, c1: 0, c2: 0, c3: 0, c4: 0, c5: 0, c6: 0, t1: 0, t2: 0, t3: 0, t4: 0 };
 var datas2 = ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"];
 var testData = [datas2];
+var timeLabel:string|undefined="";
 
-
-const makeData = () => {
+function makeData(){
     if (voltageChart !== undefined && currentChart !== undefined && tempChart !== undefined) {
-        datas2[0] = getTimeStamp();
+        
         let value: string | undefined = "";
         let length = voltageChart.data.datasets?.[0].data?.length;
         if (length !== undefined) {
+            console.log("VOLTAGE CHART IS: "+voltageChart.data.datasets?.[0]?.data?.toString())
             for (let i = 0; i < length; i++) {
+                timeLabel =voltageChart.data.labels?.[i].toString();
+                if(timeLabel!== undefined){
+                    datas2[0]=timeLabel;
+                }
                 for (let j = 1; j <= 17; j++) {
                     if (j <= 7) {
-                        value = voltageChart.data.datasets?.[j]?.data?.[i]?.toString();
+                        value = voltageChart.data.datasets?.[j-1]?.data?.[i]?.toString();
                     } else if (j <= 13) {
                         value = currentChart.data.datasets?.[j - 7]?.data?.[i]?.toString();
                     } else {
                         value = tempChart.data.datasets?.[j - 13]?.data?.[i]?.toString();
                     }
                     if (value !== undefined) {
+                        console.log("value is :"+value+"\ni:"+i+"\nj:"+j)
                         datas2[j] = value;
                     }
                 }
+                console.log("saving data to csv var with i:"+i);
+                console.log("datas2"+datas2)
                 testData.push(datas2);
+                datas2=[];
             }
         }
     }
-
-    return testData;
+    console.log("TESTDATA:"+testData);
+    //return testData;
 };
 
 //Get the csv data
@@ -188,7 +197,8 @@ const makeData = () => {
 //Function to return html code to download the csv
 const Download = (state: State) => (
     <React.Fragment>
-        <CsvDownloader filename={getFileName()} separator="," wrapColumnChar="" columns={makeCols()} datas={makeData()} text="DOWNLOAD" />
+        <button onClick={makeData}>Prepare CSV</button>
+        <CsvDownloader filename={getFileName()} separator="," wrapColumnChar="" columns={makeCols()} datas={testData} text="DOWNLOAD" />
     </React.Fragment>
 );
 

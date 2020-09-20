@@ -209,7 +209,7 @@ function portReading(port: SerialPort): SerialPort {
             };
 
             //Check if the received data has a valid format that we can read and then parse it
-            if (data[0] === HEADER) {
+            //if (data[0] === HEADER) {
                 //Cycle through valid data and assign it to the correct state variable
                 for (var i = 1; i < data.length; i++) {
                     switch (data[i]) {
@@ -264,7 +264,7 @@ function portReading(port: SerialPort): SerialPort {
                         }
                     }
                 }
-            }
+            //}
         });
     });
     return port;
