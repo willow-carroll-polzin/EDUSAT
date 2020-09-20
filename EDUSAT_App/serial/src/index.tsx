@@ -13,19 +13,8 @@ import {
     UpdateComPort,
 } from "./interfaces";
 
-
-let file = fs.createWriteStream("test.csv",{flags:"a"});
-generate({
-    columns:["test","test2"],
-    length: 1,
-    delimiter:",",
-
-    
-
-}).pipe(file)
-
 /*  SOCKET SETUP  */
-const socket = io("http://192.168.0.45:3000/"); //SocketIO client
+const socket = io("http://localhost:3000/"); //SocketIO client
 
 /*      HANDLE SOCKET EVENTS    */
 //Handle connections

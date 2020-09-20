@@ -8,7 +8,7 @@ import path from "path";
 
 /*      SETUP SERVER AND SOCKET     */
 var httpserver = http.createServer();
-httpserver.listen(3000, "192.168.0.45");
+httpserver.listen(3000, "localhost");
 const server = io.listen(httpserver); //SocketIO server
 
 let curCmd: string; //Command to send to system
@@ -37,9 +37,9 @@ server.on("connect", (socket) => {
         fileStarted = true;
         socket.broadcast.emit("sensorData", data);
     });
-    socket.on("stateData", function(data:String){
-        socket.broadcast.emit("stateData", data)
-    })
+    socket.on("stateData", function (data: String) {
+        socket.broadcast.emit("stateData", data);
+    });
 });
 
 /*      WRITE DATA TO CSV       */
@@ -83,16 +83,4 @@ function writeData(data: SensorStatus, filepath: string) {
             record[i] = data.temperature[i - 13].toString();
         }
     }
-    let records: string[][] = [record];
-
-    let file = fs.createWriteStream(filePath,{flags:"a"}); //"a"==append
-    generate({
-        columns:17,
-        length: 2
-    }).pipe(file)
-
-    fs.appendFile('mynewfile1.txt', 'Hello content!', function (err) {
-        if (err) throw err;
-        console.log('Saved!');
-    });
 }

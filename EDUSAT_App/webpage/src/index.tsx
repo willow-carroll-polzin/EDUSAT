@@ -115,7 +115,7 @@ ReactDOM.render(
 );
 
 /*  SOCKET SETUP  */
-const socket = io("http://192.168.0.45:3000/"); //Port for client
+const socket = io("http://localhost:3000/"); //Port for client
 
 /*   SOCKET FUNCTIONS  */
 //Log connections
@@ -187,7 +187,7 @@ socket.on("reconnect", (e: number) => {
 
 /*       DATA DISPLAY      */
 //Create voltage graph
-var voltageChart = new Chart("voltageChart", {
+export var voltageChart = new Chart("voltageChart", {
     type: "line",
     data: {
         labels: [],
@@ -251,7 +251,7 @@ var voltageChart = new Chart("voltageChart", {
 });
 
 //Create current graph
-var currentChart = new Chart("currentChart", {
+export var currentChart = new Chart("currentChart", {
     type: "line",
     data: {
         labels: [],
@@ -314,8 +314,8 @@ var currentChart = new Chart("currentChart", {
     },
 });
 
-//Create voltage graph
-var tempChart = new Chart("tempChart", {
+//Create temperature graph
+export var tempChart = new Chart("tempChart", {
     type: "line",
     data: {
         labels: [],

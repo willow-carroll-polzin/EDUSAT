@@ -3,6 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { State } from "./interfaces";
 import Chart from "chart.js";
+import { voltageChart, currentChart, tempChart } from "./index";
 import CsvDownloader from "react-csv-downloader";
 
 /*  REACT-REDUX CONNECTION FUNCTIONS  */
@@ -69,7 +70,7 @@ const ChartBox = (state: State) => <React.Fragment></React.Fragment>;
 /*      WRITE DATA TO CSV       */
 //Get the csv file name
 //Get csv file name
-const getFileName = () => {
+const getTimeStamp = () =>{
     let ts = Date.now();
     let date_ob = new Date(ts);
     let hours = date_ob.getHours();
@@ -78,7 +79,7 @@ const getFileName = () => {
     let day = date_ob.getDate();
     let month = date_ob.getMonth() + 1;
     let year = date_ob.getFullYear();
-    let filepath =
+    let timestamp =
         month.toString() +
         "_" +
         day.toString() +
@@ -89,7 +90,12 @@ const getFileName = () => {
         "-" +
         minutes.toString() +
         "-" +
-        seconds.toString() +
+        seconds.toString();
+        return timestamp;
+}
+
+const getFileName = () => {
+    let filepath =getTimeStamp() +
         "_EDUSAT_Telemetry.csv";
     return filepath;
 };
@@ -106,22 +112,83 @@ const columns = [
     },
 ];
 
+const makeCols = () => {
+    let testCols: { id: string; displayName: string }[] = [{ id: "0", displayName: "Timestamp" }];
+    if (voltageChart !== undefined) {
+        for (let i = 0; i < 6; i++) {
+            let headerVar: string | undefined = voltageChart.data.datasets?.[i].label;
+            if (headerVar !== undefined) {
+                testCols.push({ id: i +1+ "", displayName: headerVar });
+            }
+        }
+    }
+    if (currentChart !== undefined) {
+        for (let i = 0; i < 6; i++) {
+            let headerVar: string | undefined = currentChart.data.datasets?.[i].label;
+            if (headerVar !== undefined) {
+                testCols.push({ id: i + 7 + "", displayName: headerVar });
+            }
+        }
+    }
+    if (tempChart !== undefined) {
+        for (let i = 0; i < 4; i++) {
+            let headerVar: string | undefined = tempChart.data.datasets?.[i].label;
+            if (headerVar !== undefined) {
+                testCols.push({ id: i + 13 + "", displayName: headerVar });
+            }
+        }
+    }
+    console.log(testCols)
+    return testCols;
+};
+var datas = { time: Date.now(), v1: 0, v2: 0, v3: 0, v4: 0, v5: 0, v6: 0, c1: 0, c2: 0, c3: 0, c4: 0, c5: 0, c6: 0, t1: 0, t2: 0, t3: 0, t4: 0 };
+var datas2 = ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"];
+var testData = [datas2];
+
+
+const makeData = () => {
+    if (voltageChart !== undefined && currentChart !== undefined && tempChart !== undefined) {
+        datas2[0] = getTimeStamp();
+        let value: string | undefined = "";
+        let length = voltageChart.data.datasets?.[0].data?.length;
+        if (length !== undefined) {
+            for (let i = 0; i < length; i++) {
+                for (let j = 1; j <= 17; j++) {
+                    if (j <= 7) {
+                        value = voltageChart.data.datasets?.[j]?.data?.[i]?.toString();
+                    } else if (j <= 13) {
+                        value = currentChart.data.datasets?.[j - 7]?.data?.[i]?.toString();
+                    } else {
+                        value = tempChart.data.datasets?.[j - 13]?.data?.[i]?.toString();
+                    }
+                    if (value !== undefined) {
+                        datas2[j] = value;
+                    }
+                }
+                testData.push(datas2);
+            }
+        }
+    }
+
+    return testData;
+};
+
 //Get the csv data
-const datas = [
-    {
-        first: "foo",
-        second: "bar",
-    },
-    {
-        first: "foobar",
-        second: "foobar",
-    },
-];
+// const datas = [
+//     {
+//         first: "foo",
+//         second: "bar",
+//     },
+//     {
+//         first: "foobar",
+//         second: "foobar",
+//     },
+// ];
 
 //Function to return html code to download the csv
 const Download = (state: State) => (
     <React.Fragment>
-        <CsvDownloader filename={getFileName()} separator=";" wrapColumnChar="'" columns={columns} datas={datas} text="DOWNLOAD" />
+        <CsvDownloader filename={getFileName()} separator="," wrapColumnChar="" columns={makeCols()} datas={makeData()} text="DOWNLOAD" />
     </React.Fragment>
 );
 
