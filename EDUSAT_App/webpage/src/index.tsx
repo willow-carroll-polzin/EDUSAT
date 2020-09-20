@@ -115,7 +115,7 @@ ReactDOM.render(
 );
 
 /*  SOCKET SETUP  */
-const socket = io("http://192.168.0.25:3000/"); //Port for client
+const socket = io("http://192.168.0.45:3000/"); //Port for client
 
 /*   SOCKET FUNCTIONS  */
 //Log connections
