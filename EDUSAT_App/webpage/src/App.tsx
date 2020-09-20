@@ -5,7 +5,6 @@ import { State } from "./interfaces";
 import Chart from "chart.js";
 import CsvDownloader from "react-csv-downloader";
 
-
 /*  REACT-REDUX CONNECTION FUNCTIONS  */
 const mapStateToProps = (state: State) => ({
     sensors: state.sensors,
@@ -23,8 +22,10 @@ const dispatchProps = {
 const connector = connect(mapStateToProps, dispatchProps);
 
 //Function to return html code based on the state of the store relating to the sensors
-const Sensors = (state: State) => (
+const LSidebar = (state: State) => (
     <React.Fragment>
+        <div>SYSTEM STATUS</div>
+        <script></script>
         <div>Current Values</div>
         <div>Voltage 1: {state.sensors.voltage[0].toPrecision(3)} V </div>
         <div>Voltage 2: {state.sensors.voltage[1].toPrecision(3)} V </div>
@@ -47,6 +48,10 @@ const Sensors = (state: State) => (
     </React.Fragment>
 );
 
+//TODO: Danlging, MUST delete
+const Sensors = (state: State) => <React.Fragment></React.Fragment>;
+
+//Function to return html code based on the state of the store relating to the file manager
 const RSidebar = (state: State) => (
     <React.Fragment>
         <div>FILE MANAGER</div>
@@ -58,14 +63,38 @@ const RSidebar = (state: State) => (
     </React.Fragment>
 );
 
-const LSidebar = (state: State) => (
-    <React.Fragment>
-        <div>SYSTEM STATUS</div>
-        <script></script>
-    </React.Fragment>
-);
+//Function to return html code based on the state of the store relating to the graphs
 const ChartBox = (state: State) => <React.Fragment></React.Fragment>;
 
+/*      WRITE DATA TO CSV       */
+//Get the csv file name
+//Get csv file name
+const getFileName = () => {
+    let ts = Date.now();
+    let date_ob = new Date(ts);
+    let hours = date_ob.getHours();
+    let minutes = date_ob.getMinutes();
+    let seconds = date_ob.getSeconds();
+    let day = date_ob.getDate();
+    let month = date_ob.getMonth() + 1;
+    let year = date_ob.getFullYear();
+    let filepath =
+        month.toString() +
+        "_" +
+        day.toString() +
+        "_" +
+        year.toString() +
+        "_" +
+        hours.toString() +
+        "-" +
+        minutes.toString() +
+        "-" +
+        seconds.toString() +
+        "_EDUSAT_Telemetry.csv";
+    return filepath;
+};
+
+//Get the csv headers
 const columns = [
     {
         id: "first",
@@ -77,6 +106,7 @@ const columns = [
     },
 ];
 
+//Get the csv data
 const datas = [
     {
         first: "foo",
@@ -88,12 +118,14 @@ const datas = [
     },
 ];
 
+//Function to return html code to download the csv
 const Download = (state: State) => (
     <React.Fragment>
-        <CsvDownloader filename="myfile" separator=";" wrapColumnChar="'" columns={columns} datas={datas} text="DOWNLOAD" />
+        <CsvDownloader filename={getFileName()} separator=";" wrapColumnChar="'" columns={columns} datas={datas} text="DOWNLOAD" />
     </React.Fragment>
 );
 
+/*      CONNECT HTML FRAGMENTS TO STORE       */
 //Export new functions that connect our html returning functions to our store
 export const SensorsConnected = connector(Sensors);
 export const RSidebarConnected = connector(RSidebar);
