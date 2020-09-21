@@ -9,11 +9,16 @@ import { SensorsConnected, RSidebarConnected, LSidebarConnected, ChartConnected,
 import { devToolsEnhancer, composeWithDevTools } from "redux-devtools-extension";
 import Chart from "chart.js";
 
-
 /*TIME DATA SETUP*/
 var today = new Date();
-var counter = 0;
+
 const MAX_DATA_SET_LENGTH = 10;
+var counter = 0;
+const MAX_CSV_DATA_SET_LENGTH = 3600;
+
+export var CSV_DATA: string[][] = [[]];
+//CSV_DATA.push(["Timestamp", "Voltage 1", "Voltage 2", "Voltage 3", "Voltage 4", "Voltage 5", "Voltage 6,", "Current 1,", "Current 2", "Current 3", "Current 4", "Current 5", "Current 6", "Temp 1", "Temp 2", "Temp 3", "Temp 4"]);
+//console.log(CSV_DATA);
 /*  REDUX SETUP  */
 //Initial state of redux store
 const initial_State: State = {
@@ -50,11 +55,11 @@ ReactDOM.render(
     rSideBarElement
 );
 
-const downloadElement = document.getElementById("downloader")
+const downloadElement = document.getElementById("downloader");
 
 ReactDOM.render(
     <Provider store={store}>
-        < DownloaderConnected />
+        <DownloaderConnected />
     </Provider>,
     downloadElement
 );
@@ -137,8 +142,16 @@ socket.on("connect", () => {
         data.voltage = [Math.random(), Math.random(), Math.random(), Math.random(), Math.random(), Math.random()];
         today = new Date();
         store.dispatch(UpdateSensorData(data));
+        var newData = [
+            today.getHours().toString().padStart(2, "0") +
+                ":" +
+                today.getMinutes().toString().padStart(2, "0") +
+                ":" +
+                today.getSeconds().toString().padStart(2, "0"),
+        ];
         for (var i: number = 0; i < 6; i++) {
             counter++;
+            newData.push(data.voltage[i].toString());
             addData(
                 voltageChart,
                 today.getHours().toString().padStart(2, "0") +
@@ -152,6 +165,7 @@ socket.on("connect", () => {
             );
         }
         for (var i: number = 0; i < 6; i++) {
+            newData.push(data.current[i].toString());
             addData(
                 currentChart,
                 today.getHours().toString().padStart(2, "0") +
@@ -165,6 +179,7 @@ socket.on("connect", () => {
             );
         }
         for (var i: number = 0; i < 4; i++) {
+            newData.push(data.temperature[i].toString());
             addData(
                 tempChart,
                 today.getHours().toString().padStart(2, "0") +
@@ -176,6 +191,7 @@ socket.on("connect", () => {
                 i
             );
         }
+        CSV_DATA.push(newData);
     });
 });
 

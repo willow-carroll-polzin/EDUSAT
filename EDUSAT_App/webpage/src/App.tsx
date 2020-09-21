@@ -3,7 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { State } from "./interfaces";
 import Chart from "chart.js";
-import { voltageChart, currentChart, tempChart } from "./index";
+import { voltageChart, currentChart, tempChart, CSV_DATA } from "./index";
 import CsvDownloader from "react-csv-downloader";
 
 /*  REACT-REDUX CONNECTION FUNCTIONS  */
@@ -100,17 +100,6 @@ const getFileName = () => {
     return filepath;
 };
 
-//Get the csv headers
-const columns = [
-    {
-        id: "first",
-        displayName: "First column",
-    },
-    {
-        id: "second",
-        displayName: "Second column",
-    },
-];
 
 const makeCols = () => {
     let testCols: { id: string; displayName: string }[] = [{ id: "0", displayName: "Timestamp" }];
@@ -140,6 +129,7 @@ const makeCols = () => {
     }
     console.log(testCols)
     return testCols;
+    
 };
 var datas = { time: Date.now(), v1: 0, v2: 0, v3: 0, v4: 0, v5: 0, v6: 0, c1: 0, c2: 0, c3: 0, c4: 0, c5: 0, c6: 0, t1: 0, t2: 0, t3: 0, t4: 0 };
 var datas2 = ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"];
@@ -147,38 +137,40 @@ var testData = [datas2];
 var timeLabel:string|undefined="";
 
 function makeData(){
-    if (voltageChart !== undefined && currentChart !== undefined && tempChart !== undefined) {
+    //if (voltageChart !== undefined && currentChart !== undefined && tempChart !== undefined) {
         
-        let value: string | undefined = "";
-        let length = voltageChart.data.datasets?.[0].data?.length;
-        if (length !== undefined) {
-            console.log("VOLTAGE CHART IS: "+voltageChart.data.datasets?.[0]?.data?.toString())
-            for (let i = 0; i < length; i++) {
-                timeLabel =voltageChart.data.labels?.[i].toString();
-                if(timeLabel!== undefined){
-                    datas2[0]=timeLabel;
-                }
-                for (let j = 1; j <= 17; j++) {
-                    if (j <= 7) {
-                        value = voltageChart.data.datasets?.[j-1]?.data?.[i]?.toString();
-                    } else if (j <= 13) {
-                        value = currentChart.data.datasets?.[j - 7]?.data?.[i]?.toString();
-                    } else {
-                        value = tempChart.data.datasets?.[j - 13]?.data?.[i]?.toString();
-                    }
-                    if (value !== undefined) {
-                        console.log("value is :"+value+"\ni:"+i+"\nj:"+j)
-                        datas2[j] = value;
-                    }
-                }
-                console.log("saving data to csv var with i:"+i);
-                console.log("datas2"+datas2)
-                testData.push(datas2);
-                datas2=[];
-            }
-        }
-    }
-    console.log("TESTDATA:"+testData);
+    //     let value: string | undefined = "";
+    //     let length = voltageChart.data.datasets?.[0].data?.length;
+    //     if (length !== undefined) {
+    //         console.log("VOLTAGE CHART IS: "+voltageChart.data.datasets?.[0]?.data?.toString())
+    //         for (let i = 0; i < length; i++) {
+    //             timeLabel =voltageChart.data.labels?.[i].toString();
+    //             if(timeLabel!== undefined){
+    //                 datas2[0]=timeLabel;
+    //             }
+    //             for (let j = 1; j <= 17; j++) {
+    //                 if (j <= 7) {
+    //                     value = voltageChart.data.datasets?.[j-1]?.data?.[i]?.toString();
+    //                 } else if (j <= 13) {
+    //                     value = currentChart.data.datasets?.[j - 7]?.data?.[i]?.toString();
+    //                 } else {
+    //                     value = tempChart.data.datasets?.[j - 13]?.data?.[i]?.toString();
+    //                 }
+    //                 if (value !== undefined) {
+    //                     console.log("value is :"+value+"\ni:"+i+"\nj:"+j)
+    //                     datas2[j] = value;
+    //                 }
+    //             }
+    //             console.log("saving data to csv var with i:"+i);
+    //             console.log("datas2"+datas2)
+    //             testData.push(datas2);
+    //             datas2=[];
+    //         }
+    //     }
+    // }
+    testData=CSV_DATA;
+    //console.log("TESTDATA:"+testData);
+    //console.log("CSV_DATA:"+CSV_DATA)
     //return testData;
 };
 
