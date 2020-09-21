@@ -270,10 +270,6 @@ export var voltageChart = new Chart("voltageChart", {
                 ticks: {
                     beginAtZero: true,
                 },
-                type: "time",
-                time: {
-                    unit: "second"
-                },
                 scaleLabel: {
                     display: true,
                     labelString: "Time (s)",
@@ -365,10 +361,6 @@ export var currentChart = new Chart("currentChart", {
                 ticks: {
                     beginAtZero: true,
                 },
-                type: "time",
-                time: {
-                    unit: "second"
-                },
                 scaleLabel: {
                     display: true,
                     labelString: "Time (s)",
@@ -445,10 +437,6 @@ export var tempChart = new Chart("tempChart", {
             xAxes: [{
                 ticks: {
                     beginAtZero: true,
-                },
-                type: "time",
-                time: {
-                    unit: "second"
                 },
                 scaleLabel: {
                     display: true,
