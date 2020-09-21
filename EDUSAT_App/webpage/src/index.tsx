@@ -260,8 +260,39 @@ export var voltageChart = new Chart("voltageChart", {
                     ticks: {
                         beginAtZero: true,
                     },
-                },
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Voltage (V)",
+                    },
+                }
             ],
+            xAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                },
+                type: "time",
+                time: {
+                    unit: "second"
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: "Time (s)",
+                },
+
+                }
+            ],
+        },
+        title: {
+            display: true,
+            text: "EDUSAT Voltages",
+        },
+        legend: {
+            display: true,
+            labels: {
+                fontColor: "rgb(0, 0, 0)",
+            },
+            align: "center",
+            position: "right",
         },
     },
 });
@@ -324,8 +355,39 @@ export var currentChart = new Chart("currentChart", {
                     ticks: {
                         beginAtZero: true,
                     },
-                },
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Current (mA)",
+                    },
+                }
             ],
+            xAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                },
+                type: "time",
+                time: {
+                    unit: "second"
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: "Time (s)",
+                },
+
+                }
+            ],
+        },
+        title: {
+            display: true,
+            text: "EDUSAT Currents",
+        },
+        legend: {
+            display: true,
+            labels: {
+                fontColor: "rgb(0, 0, 0)",
+            },
+            align: "center",
+            position: "right",
         },
     },
 });
@@ -374,8 +436,39 @@ export var tempChart = new Chart("tempChart", {
                     ticks: {
                         beginAtZero: true,
                     },
-                },
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Temperature (C)",
+                    },
+                }
             ],
+            xAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                },
+                type: "time",
+                time: {
+                    unit: "second"
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: "Time (s)",
+                },
+
+                }
+            ],
+        },
+        title: {
+            display: true,
+            text: "EDUSAT Temperatures",
+        },
+        legend: {
+            display: true,
+            labels: {
+                fontColor: "rgb(0, 0, 0)",
+            },
+            align: "center",
+            position: "right",
         },
     },
 });

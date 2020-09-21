@@ -21,7 +21,7 @@
         "@types/redux-devtools-extension": "2.13.2",
         "@types/socket.io-client": "1.4.33",
         "parcel-bundler": "1.12.4",
-        "react": "16.13.1",
+        "react": "^16.6.3",
         "react-dom": "16.13.1",
         "redux-devtools-extension": "2.13.8",
         "socket.io-client": "2.3.0",
