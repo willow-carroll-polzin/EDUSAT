@@ -15,7 +15,7 @@ unsigned long int counter = 0;
 // ====================
 // Required Parameters
 // ====================
-SystemStatus edusat_system();
+SystemStatus edusat_system;
 
 // =================
 // Arduino Functions
@@ -60,5 +60,5 @@ void setup() {
 void loop() {
     edusat_system.updateStatus();
     delay(POLE_TIME);
-    edusat_system.sendStatus();
+    edusat_system.sendTelemtry();
 } 

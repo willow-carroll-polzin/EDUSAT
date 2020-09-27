@@ -33,6 +33,21 @@
 // Class Definitions
 // =================
 //===================================================================================
+class MultiPlex {
+    private:
+        int muxSize;
+        int controlPins[4];
+        int dataPin;
+        int *muxChannels;
+
+    public:
+        MultiPlex(int size, int sig1, int sig2, int sig3, int sig4, int data);
+        ~MultiPlex() {};
+
+        float readMux(int channel);
+};
+
+//===================================================================================
 class SystemStatus {
     private:
         Sensor voltages[V_SENSE_SIZE];
@@ -44,25 +59,11 @@ class SystemStatus {
         MultiPlex mux;
 
     public:
-        SystemStatus(uint8_t pin, char type);
+        SystemStatus();
         ~SystemStatus() {};
 
         void setMode(bool mode);
         void updateStatus();
         void sendTelemtry();
-};
-
-class MultiPlex {
-    private:
-        uint8_t muxSize;
-        uint8_t controlPins[4];
-        uint8_t dataPin;
-        int muxChannels[16][4];
-
-    public:
-        MultiPlex(int size, uint8_t sig1, uint8_t sig2, uint8_t sig3, uint8_t sig4);
-        ~MultiPlex() {};
-
-        float readMux(int channel);
 };
 #endif
