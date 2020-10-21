@@ -9,6 +9,13 @@
 // =================
 // Sensor Class
 // =================
+Sensor::Sensor()
+{
+    sType = 'f';
+    sNum = 0;
+    sValue = 0;
+}
+
 Sensor::Sensor(int num, char type)
 {
     sType = type;
@@ -17,9 +24,9 @@ Sensor::Sensor(int num, char type)
 }
 
 // This method 
-void Sensor::updateValue(float val)
+float Sensor::getValue()
 {
-    sValue = val;
+    return sValue;
 }
 
 char Sensor::getType()

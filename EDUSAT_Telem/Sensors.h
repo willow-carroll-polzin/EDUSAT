@@ -35,10 +35,16 @@ private:
 
 public:
     Sensor(int pin, char type);
+    Sensor();
     ~Sensor(){};
 
-    void updateValue(float val);
+    //Get values and sensor types
+    void setNum(int pin);
+    void setType(char type);
+    float getValue();
     char getType();
+
+    //Update current sensor values
     void voltageCalculator(float recentVoltage);
     void currentCalculator(float recentCurrent);
     void temperatureCalculator(float recentTemperature);

@@ -42,6 +42,7 @@ class MultiPlex {
 
     public:
         MultiPlex(int size, int sig1, int sig2, int sig3, int sig4, int data);
+        MultiPlex();
         ~MultiPlex() {};
 
         float readMux(int channel);
