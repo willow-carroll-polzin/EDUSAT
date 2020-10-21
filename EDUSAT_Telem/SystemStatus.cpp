@@ -69,10 +69,12 @@ MultiPlex::MultiPlex(int size, int sig1, int sig2, int sig3, int sig4, int data)
 
 float MultiPlex::readMux(int channel)
 {
+    Serial.begin(9600);
     //Loop through all 4 digital "signal" pins to set the mux Channel (channel=1<->16)
     for (int j = 0; j < 4; j++)
     {
-        digitalWrite(controlPins[j], (*muxChannels)[channel][j]);
+        Serial.println((*muxChannels));
+        //digitalWrite(controlPins[j], (*muxChannels)[channel][j]);
     }
 
     //Read current MUX output from the data pin based on selected channel
@@ -86,23 +88,22 @@ float MultiPlex::readMux(int channel)
 // SystemStatus Class
 // =================
 //===================================================================================
-SystemStatus::SystemStatus()
+SystemStatus::SystemStatus(): mux(MUX_SIZE, MUX_PIN_1, MUX_PIN_2, MUX_PIN_3, MUX_PIN_4, MUX_PIN_D)
 {
+    //Serial.begin(9600);
     for (int i = 0; i < 6; i++) {
-        //voltages[i] = new Sensor(i, 'v');
-        //currents[i] = new Sensor(i, 'c');
-         
-        voltages[i].sNum=i;
-        voltages[i].sType='v';
-        currents[i].sNum=i;
-        currents[i].sType='c'; 
+      //test comment
+        voltages[i].setNum(i);
+        voltages[i].setType('v');
+        currents[i].setNum(i);
+        currents[i].setType('c'); 
         if (i < 4) {
-            temperatures[i].sNum=i;
-            temperatures[i].sType='t';
+            temperatures[i].setNum(i);
+            temperatures[i].setType('t');
         }
     }
     mode = true;
-    mux = new MultiPlex(MUX_SIZE, MUX_PIN_1, MUX_PIN_2, MUX_PIN_3, MUX_PIN_4, MUX_PIN_D);
+    mux.readMux(1);
 }
 
 void SystemStatus::setMode(bool cmd)

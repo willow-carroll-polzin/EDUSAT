@@ -23,7 +23,16 @@ Sensor::Sensor(int num, char type)
     sValue = 0;
 }
 
-// This method 
+void Sensor::setNum(int pin)
+{
+    sNum = pin;
+}
+
+void Sensor::setType(char type)
+{
+    sType = type;
+}
+
 float Sensor::getValue()
 {
     return sValue;

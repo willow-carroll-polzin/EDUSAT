@@ -3,7 +3,7 @@
 // ====================
 #include <math.h>
 #include "SystemStatus.h"
-#include "Sensors.h"
+//#include "Sensors.h"
 
 // ====================
 // Constant Definitions
@@ -16,12 +16,15 @@ unsigned long int counter = 0;
 // Required Parameters
 // ====================
 SystemStatus edusat_system;
-
+//SystemStatus edusat_system=*(new SystemStatus());
 // =================
 // Arduino Functions
 // =================
 //Arduino setup:
 void setup() {
+    //Set the baud rate
+    Serial.begin(9600); 
+    Serial.println("starting setup");
     // Setup control on pins D2, D3, D4, D5 for MUX bit control
     pinMode(MUX_PIN_1, OUTPUT);
     pinMode(MUX_PIN_2, OUTPUT);
@@ -52,13 +55,13 @@ void setup() {
     pinMode(A7, OUTPUT);
     digitalWrite(A7, LOW); */
 
-    //Set the baud rate
-    Serial.begin(9600); 
+
 }
 
 //Sensing loop:
 void loop() {
     edusat_system.updateStatus();
+    Serial.println("loop");
     delay(POLE_TIME);
     edusat_system.sendTelemtry();
 } 
