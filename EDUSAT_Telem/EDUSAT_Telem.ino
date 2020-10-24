@@ -17,6 +17,7 @@ unsigned long int counter = 0;
 // ====================
 //SystemStatus edusat_system;
 SystemStatus edusat_system=*(new SystemStatus());
+
 // =================
 // Arduino Functions
 // =================

@@ -62,6 +62,7 @@ void SystemStatus::sendTelemtry()
     for (int i = 0; i < V_SENSE_SIZE; i++)
     {
         Serial.print(i);
+        Serial.print('-');
         Serial.print(voltages[i].getValue());
         Serial.print(DELIMITER);
     }
@@ -69,6 +70,7 @@ void SystemStatus::sendTelemtry()
     for (int i = 0; i < I_SENSE_SIZE; i++)
     {
         Serial.print(i);
+        Serial.print('-');
         Serial.print(currents[i].getValue());
         Serial.print(DELIMITER);
     }
@@ -76,6 +78,7 @@ void SystemStatus::sendTelemtry()
     for (int i = 0; i < T_SENSE_SIZE; i++)
     {
         Serial.print(i);
+        Serial.print('-');
         Serial.print(temperatures[i].getValue());
         Serial.print(DELIMITER);
     }

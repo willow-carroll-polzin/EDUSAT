@@ -25,7 +25,22 @@ class MultiPlex {
         int muxSize;
         int controlPins[4];
         int dataPin;
-        int *muxChannels;
+        int muxChannels[16][4]{{0, 0, 0, 0},
+        {1, 0, 0, 0},
+        {0, 1, 0, 0},
+        {1, 1, 0, 0},
+        {0, 0, 1, 0},
+        {1, 0, 1, 0},
+        {0, 1, 1, 0},
+        {1, 1, 1, 0},
+        {0, 0, 0, 1},
+        {1, 0, 0, 1},
+        {0, 1, 0, 1},
+        {1, 1, 0, 1},
+        {0, 0, 1, 1},
+        {1, 0, 1, 1},
+        {0, 1, 1, 1},
+        {1, 1, 1, 1}};
 
     public:
         MultiPlex(int size, int sig1, int sig2, int sig3, int sig4, int data);
