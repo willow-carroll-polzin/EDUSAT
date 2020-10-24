@@ -3,6 +3,7 @@
 // ====================
 #include <math.h>
 #include "SystemStatus.h"
+#include "MUX.h"
 //#include "Sensors.h"
 
 // ====================
@@ -53,6 +54,9 @@ void setup() {
     digitalWrite(A6, LOW);
     pinMode(A7, OUTPUT);
     digitalWrite(A7, LOW); */
+    Serial.print(HEADER);
+    Serial.print('s');
+    Serial.println(FOOTER);
 }
 
 //Sensing loop:
