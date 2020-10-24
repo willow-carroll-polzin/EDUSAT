@@ -54,8 +54,6 @@ void setup() {
     digitalWrite(A6, LOW);
     pinMode(A7, OUTPUT);
     digitalWrite(A7, LOW); */
-
-
 }
 
 //Sensing loop:

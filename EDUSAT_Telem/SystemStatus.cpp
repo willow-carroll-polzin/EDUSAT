@@ -87,7 +87,6 @@ float MultiPlex::readMux(int channel)
 // =================
 // SystemStatus Class
 // =================
-//===================================================================================
 SystemStatus::SystemStatus(): mux(MUX_SIZE, MUX_PIN_1, MUX_PIN_2, MUX_PIN_3, MUX_PIN_4, MUX_PIN_D)
 {
     //Serial.begin(9600);
