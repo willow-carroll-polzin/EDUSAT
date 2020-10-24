@@ -9,14 +9,13 @@
 // Constant Definitions
 // ====================
 const unsigned long interval = 1000;
-static unsigned long currentMillis;
 unsigned long int counter = 0;
 
 // ====================
 // Required Parameters
 // ====================
-SystemStatus edusat_system;
-//SystemStatus edusat_system=*(new SystemStatus());
+//SystemStatus edusat_system;
+SystemStatus edusat_system=*(new SystemStatus());
 // =================
 // Arduino Functions
 // =================
@@ -24,7 +23,7 @@ SystemStatus edusat_system;
 void setup() {
     //Set the baud rate
     Serial.begin(9600); 
-    Serial.println("starting setup");
+    //Serial.println("starting setup");
     // Setup control on pins D2, D3, D4, D5 for MUX bit control
     pinMode(MUX_PIN_1, OUTPUT);
     pinMode(MUX_PIN_2, OUTPUT);
@@ -59,7 +58,6 @@ void setup() {
 //Sensing loop:
 void loop() {
     edusat_system.updateStatus();
-    Serial.println("loop");
     delay(POLE_TIME);
     edusat_system.sendTelemtry();
 } 

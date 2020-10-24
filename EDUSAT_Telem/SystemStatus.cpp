@@ -69,7 +69,7 @@ MultiPlex::MultiPlex(int size, int sig1, int sig2, int sig3, int sig4, int data)
 
 float MultiPlex::readMux(int channel)
 {
-    Serial.begin(9600);
+    //Serial.begin(9600);
     //Loop through all 4 digital "signal" pins to set the mux Channel (channel=1<->16)
     for (int j = 0; j < 4; j++)
     {
@@ -90,6 +90,7 @@ float MultiPlex::readMux(int channel)
 SystemStatus::SystemStatus(): mux(MUX_SIZE, MUX_PIN_1, MUX_PIN_2, MUX_PIN_3, MUX_PIN_4, MUX_PIN_D)
 {
     //Serial.begin(9600);
+    Serial.println("In the system status constructor");
     for (int i = 0; i < 6; i++) {
       //test comment
         voltages[i].setNum(i);
