@@ -42,7 +42,13 @@ class SystemStatus {
         ~SystemStatus() {};
 
         void setMode(bool mode);
+
+        Sensor getVoltages(int i);
+        Sensor getCurrents(int i);
+        Sensor getTemperatures(int i);
+        
         void updateStatus();
         void sendTelemtry();
+        int v,j,t=0;
 };
 #endif

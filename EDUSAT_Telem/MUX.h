@@ -10,11 +10,15 @@
 // Constant Definitions
 // ====================
 #define MUX_SIZE 16    //Number of MUX channels
+
+//Digital pins
 #define MUX_PIN_1 2    //Mux control/signal pin
 #define MUX_PIN_2 3    //Mux control/signal pin
 #define MUX_PIN_3 4    //Mux control/signal pin
 #define MUX_PIN_4 5    //Mux control/signal pin
-#define MUX_PIN_D A0    //Mux data pin
+
+//Analog pins
+#define MUX_PIN_D A1   //Mux signal pin
 
 // =================
 // Class Definitions
@@ -24,7 +28,7 @@ class MultiPlex {
     private:
         int muxSize;
         int controlPins[4];
-        int dataPin;
+        int sigPin;
         int muxChannels[16][4]{{0, 0, 0, 0},
         {1, 0, 0, 0},
         {0, 1, 0, 0},

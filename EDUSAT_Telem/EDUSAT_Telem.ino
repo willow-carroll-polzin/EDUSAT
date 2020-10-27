@@ -6,6 +6,7 @@
 #include "MUX.h"
 //#include "Sensors.h"
 
+
 // ====================
 // Constant Definitions
 // ====================
@@ -15,16 +16,17 @@ unsigned long int counter = 0;
 // ====================
 // Required Parameters
 // ====================
-//SystemStatus edusat_system;
-SystemStatus edusat_system=*(new SystemStatus());
+SystemStatus edusat_system;
+//SystemStatus edusat_system=*(new SystemStatus());
 
-// =================
+int testPin = 6;
+
 // Arduino Functions
 // =================
 //Arduino setup:
 void setup() {
     //Set the baud rate
-    Serial.begin(9600); 
+    Serial.begin(115200); 
     //Serial.println("starting setup");
     // Setup control on pins D2, D3, D4, D5 for MUX bit control
     pinMode(MUX_PIN_1, OUTPUT);
@@ -39,6 +41,9 @@ void setup() {
     digitalWrite(MUX_PIN_3, LOW);
     digitalWrite(MUX_PIN_4, LOW);
 
+    pinMode(testPin, OUTPUT);
+    digitalWrite(testPin, HIGH);
+    
     /*
     //Ensure all other analog pins are low to reduce chance of noise
     pinMode(A1, OUTPUT);
@@ -60,9 +65,15 @@ void setup() {
     Serial.println(FOOTER);
 }
 
-//Sensing loop:
+//Sensing loop
 void loop() {
     edusat_system.updateStatus();
-    delay(POLE_TIME);
+    //delay(POLE_TIME);
     edusat_system.sendTelemtry();
+    
+      //edusat_system.updateStatus();
+      //Serial.println(edusat_system.getVoltages(1).getValue());
+      //delay(250);
+    
+
 } 

@@ -27,7 +27,7 @@ SystemStatus::SystemStatus(): mux(MUX_SIZE, MUX_PIN_1, MUX_PIN_2, MUX_PIN_3, MUX
         }
     }
     mode = true;
-    mux.readMux(1);
+    //mux.readMux(1);
 }
 
 void SystemStatus::setMode(bool cmd)
@@ -35,10 +35,24 @@ void SystemStatus::setMode(bool cmd)
     mode = cmd;
 }
 
+Sensor SystemStatus::getVoltages(int i) {
+  return voltages[i];
+}
+
+Sensor SystemStatus::getCurrents(int i) {
+  return currents[i];
+}
+
+Sensor SystemStatus::getTemperatures(int i) {
+  return temperatures[i];
+}
+
 void SystemStatus::updateStatus()
 {
-    int v,j,t = 0; //Voltage, Current, Temperature counters
-
+    v = 0; //Voltage, Current, Temperature counters
+    t=0;
+    j=0;
+    //Cycle through all 16 channels and read the values for each corresponding sensor (i.e. Channel 4 is Voltage sensor 2)
     for (int i = 0; i < MUX_SIZE; i++) {
         if (i == 0 || i == 2 || i == 4 || i == 6 || i == 8 || i == 10) { 
             voltages[v].voltageCalculator(mux.readMux(i));
@@ -49,9 +63,10 @@ void SystemStatus::updateStatus()
             j++;
         }
         else if (i == 12 || i == 13 || i == 14 || i == 15) { 
-            temperatures[v].temperatureCalculator(mux.readMux(i));
+            temperatures[t].temperatureCalculator(mux.readMux(i));
             t++;
         }
+        delay(50);
     }
 }
 

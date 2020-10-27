@@ -11,7 +11,7 @@
 // ====================
 #define SENSOR_STATUS_PIN 10
 
-#define VOLTAGE_REF 0 //0 Ohm resistor acting as Rref (+/-5%)
+#define VOLTAGE_REF 1 //0 Ohm resistor acting as Rref (+/-5%)
 
 #define CURRENT_REF 1.2 //1 Ohm resistor acting as Rref (+/-5%)
 #define CURRENT_GAIN 2 //Amount of gain applied to measued "current"

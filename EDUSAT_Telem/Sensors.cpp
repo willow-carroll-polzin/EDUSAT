@@ -50,7 +50,7 @@ void Sensor::voltageCalculator(float curVal)
 
 void Sensor::currentCalculator(float curVal)
 {
-    sValue = curVal * (1.0/CURRENT_GAIN);
+    sValue = curVal * (1.0/CURRENT_GAIN);   
 }
 
 //TODO: Un-hardcode these temperature constants, and measure the Vin term from the 
