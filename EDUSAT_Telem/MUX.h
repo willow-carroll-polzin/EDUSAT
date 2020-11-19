@@ -12,10 +12,10 @@
 #define MUX_SIZE 16    //Number of MUX channels
 
 //Digital pins
-#define MUX_PIN_1 2    //Mux control/signal pin
-#define MUX_PIN_2 3    //Mux control/signal pin
-#define MUX_PIN_3 4    //Mux control/signal pin
-#define MUX_PIN_4 5    //Mux control/signal pin
+#define MUX_PIN_1 5    //Mux control/signal pin
+#define MUX_PIN_2 4    //Mux control/signal pin
+#define MUX_PIN_3 3    //Mux control/signal pin
+#define MUX_PIN_4 2    //Mux control/signal pin
 
 //Analog pins
 #define MUX_PIN_D A1   //Mux signal pin
