@@ -13,13 +13,12 @@
 
 #define VOLTAGE_REF 1 //0 Ohm resistor acting as Rref (+/-5%)
 
-#define CURRENT_REF 1.2 //1 Ohm resistor acting as Rref (+/-5%)
-#define CURRENT_GAIN 2 //Amount of gain applied to measued "current"
+#define CURRENT_GAIN 3  //Amount of gain applied to measued "current"
 
-#define TEMP_VIN 5              //Theoretical Source voltage supplied (V) ***ASSUMED TO = 5V***
+#define TEMP_VIN 5            //Theoretical Source voltage supplied (V) ***ASSUMED TO = 5V***
 #define TEMP_REF 10000;       //Reference resistor voltage (Ohm)        ***SET TO 1 kOhm***
 #define TEMP_B 3500;          //Stein-Hart constant (K)
-#define TEMP_AMB 298.15; //Ambient temperature (K), 25 + 273.15
+#define TEMP_AMB 298.15;      //Ambient temperature (K), 25 + 273.15
 #define TEMP_MES_AMB 2000;    //Resistance of thermistor at ambient
 
 // =================
@@ -45,9 +44,9 @@ public:
     char getType();
 
     //Update current sensor values
-    void voltageCalculator(float recentVoltage);
-    void currentCalculator(float recentCurrent);
-    void temperatureCalculator(float recentTemperature);
+    void voltageCalculator(float recentVoltage, int v);
+    void currentCalculator(float recentCurrent, int j);
+    void temperatureCalculator(float recentTemperature, int t);
 };
 
 #endif

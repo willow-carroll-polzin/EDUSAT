@@ -55,15 +55,15 @@ void SystemStatus::updateStatus()
     //Cycle through all 16 channels and read the values for each corresponding sensor (i.e. Channel 4 is Voltage sensor 2)
     for (int i = 0; i < MUX_SIZE; i++) {
         if (i == 0 || i == 2 || i == 4 || i == 6 || i == 8 || i == 10) { 
-            voltages[v].voltageCalculator(mux.readMux(i));
+            voltages[v].voltageCalculator(mux.readMux(i), v);
             v++;
         }
         else if (i == 1 || i == 3 || i == 5 || i == 7 || i == 9 || i == 11) { 
-            currents[j].currentCalculator(mux.readMux(i));
+            currents[j].currentCalculator(mux.readMux(i), j);
             j++;
         }
         else if (i == 12 || i == 13 || i == 14 || i == 15) { 
-            temperatures[t].temperatureCalculator(mux.readMux(i));
+            temperatures[t].temperatureCalculator(mux.readMux(i), t);
             t++;
         }
         delay(50);
