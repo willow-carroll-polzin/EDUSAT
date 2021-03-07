@@ -20,11 +20,18 @@ In the provided folder, there is a bash script, " .sh". To run this script:. If 
 2. Navigate to the "EDUSAT_App" folder
 3. Type the following command and press enter:  ```start cd serial && start cd socket_server && cd webpage```
 5. Now there are three instances of command prompt running, one in each subfolder of the EDUSAT_App 
-6. In the command prompt window in the ```serial``` subfolder, type the following command and press enter: 
-7. In the command prompt windows in the ```webpage``` subfolder, type the following commands, pressing enter after each command
+6. In the command prompt window in the ```serial``` subfolder, type the following commands, pressing enter after each command:
+    * ```yarn setup```
+    * ```yarn build```
+    * ```yarn start```
+7. In the command prompt window in the ```socket_server``` subfolder, type the following commands, pressing enter after each command:
+    * ```yarn setup```
+    * ```yarn build```
+    * ```yarn start```
+8. In the command prompt windows in the ```webpage``` subfolder, type the following commands, pressing enter after each command:
+    * ```yarn setup```
+    * ```yarn serve```
 
-```yarn setup```
-```yarn serve```
 
 
 ### Starting the parcel server
