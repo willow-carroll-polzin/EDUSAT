@@ -31,17 +31,20 @@ In the provided folder, there is a bash script, " .sh". To run this script:. If 
 8. In the command prompt windows in the ```webpage``` subfolder, type the following commands, pressing enter after each command:
     * ```yarn setup```
     * ```yarn serve```
-
-
-
-### Starting the parcel server
-
-### Opening the Web Client
+9. In this command prompt as the previous step, you should see something similar to the following:
+    * ```yarn run v1.22.4```
+    * ```$ parcel serve --port 8085 src/index.html```
+    * ``` Server running at http://localhost:8085```
+10. In a web browser, go to the address on the last line, either by copying and pasting, or by clicking the address itself in your command prompt window
 
 ### Using the Web Client
-To select which graphs are being used
+After setting up the web client using either the bash script or the command line instructions provided aobve, you will be able to access the web-client through the web browser.
 
-To download the data into a csv
+To select which data points are being graphed on each graph, toggle each dataset on and off by clicking on their legend entry.
+
+To download the data into a csv:
+* Click the "Prepare CSV" Button
+* Click the "DOWNLOAD BUTTON" and a .csv file named with the current date and time will be downloaded to your computer. It will contain all data entries since the last time data was prepared and downloaded
 
 
 
