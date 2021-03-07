@@ -48,12 +48,7 @@ To download the data into a csv:
 * Click the "DOWNLOAD BUTTON" and a .csv file named with the current date and time will be downloaded to your computer. It will contain all data entries since the last time data was prepared and downloaded
 
 
+### Closing the System
+Once done with the system, it can be closed by pressing ```CTRL+C``` in each command prompt browser, followed by: ```y```  then ```ENTER``` when the command prompt asks if you wish to terminate the program.
 
-### Modifying the App
-
-## Setup
-
-## Output Format
-
-## Examples
-+
+If issues arise during the setup, installation, or use of this code, feel free to contact: keyanna.coghlan@carleton.ca
