@@ -21,7 +21,7 @@ In the provided folder, there is a bash script, " .sh". To run this script, simp
 2. Navigate to the "EDUSAT_App" folder
 3. Type the following command and press enter:  ```start cd serial && start cd socket_server && cd webpage```
 5. Now there are three instances of command prompt running, one in each subfolder of the EDUSAT_App 
-6. In the command prompt window in the ```serial``` subfolder, type the following commands, pressing enter after each command:
+6. In the command prompt window in the ```serial``` subfolder, type the following commands, pressing enter after each command. Note: this may not work if you do not have an arduino connected, as an arduino is necessary for monitoring the system. For running the entire system, you must be connected to the onboard arduino.
     * ```yarn setup```
     * ```yarn build```
     * ```yarn start```
