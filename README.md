@@ -1,21 +1,22 @@
 # EDUSAT
 ---
 A eletrical power distribution system (EPS) for a FLAT-SAT aimed for class-room use. This repository contains the telemetry, control, and interface software for this system.
+The two main sections of this repo are the EDUSAT Web Application Code (in the folder "EDUSAT_App"), and the EDUSAT Telemetry code for MCU data collection (in the folder "EDUSAT_Telem").
 
 ## EDUSAT App
 
 The EDUSAT App is a web-client that can be seen in any local web browser and launched from any computer. In order to launch and open the app, follow the instructions below
 
-### Setup and Installation
+### Prerequisites
 In order to function properly, yarn must be installed first. To do this, visit this [link](https://classic.yarnpkg.com/en/docs/install/#windows-stable).
 
 If you do not already have nodejs installed, you will need to do so using think [link](https://nodejs.org/en/download/).
 
 Once nodejs and yarn have been successfully installed, continue on to the next steps.
-#### Bash Script Setup
-In the provided folder, there is a bash script, " .sh". To run this script:. If the computer that you are running on does not allow you run bash scripts, follow the command line setup instructions below
+### Bash Script Setup
+In the provided folder, there is a bash script, " .sh". To run this script, simply double click the script file in windows explorer. If the computer that you are running on does not allow you run bash scripts, follow the command line setup instructions below
 
-#### Command line set up (to use if the bash script cannot execute)
+### Command line set up (to use if the bash script cannot execute)
 1. Open up a command prompt
 2. Navigate to the "EDUSAT_App" folder
 3. Type the following command and press enter:  ```start cd serial && start cd socket_server && cd webpage```
