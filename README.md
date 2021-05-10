@@ -43,10 +43,39 @@ To set up this project:
     - *SystemStatus.cpp*: Class file for which coordinates individual sensor objects and MUX object.
     - *SystemStatus.h*: Header describing systemstatus class. 
 
-## EDUSAT Hardware:
-![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/edusat_hardware.png?raw=true)
+## EDUSAT Hardware
+The main components of EDUSAT can be seen in the diagram below:
+
+![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_hardware.png?raw=true)
+
+More detailed schematics can be found in the following sections.
+
+### Maximum Peak Power Tracking (MPPT):
+
+![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_hardware.png?raw=true)
+
+### DC-DC Conversion:
+
+![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_hardware.png?raw=true)
+
+### Telemetry:
+
+![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_hardware.png?raw=true)
+
+### EDUSAT Prototypes - (V1.0):
+A prototype version is pictured below:
+
+![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_hardware.png?raw=true)
 
 ## EDUSAT Software - Data Collection via Microcontroller
+EDUSAT's telemetry in the form of voltages, currents, and temperatures are gathered on the MCU. This data is then sent via serial port to the client running on the connected computer. 
+
+### Flashing the MCU
+
+### Adding more sensors
+
+### Using the MCU
+
 
 ## EDUSAT Software - Interface App
 EDUSAT's main interface is a web-client that can be viewed in any web browser and launched from any computer. In order to launch and open the app, follow the instructions below:
