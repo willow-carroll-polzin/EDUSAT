@@ -14,7 +14,7 @@ To set up this project:
 
 ![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/edusat_hardware.png?raw=true)
 
-### Microcontroller Application
+The EDUSAT App is a web-client that can be seen in any local web browser and launched from any computer. In order to launch and open the app, follow the instructions below
 
 ## EDUSAT Hardware
 
