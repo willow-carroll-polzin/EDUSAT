@@ -1,0 +1,15 @@
+{
+    "include": [
+        "src/**/*.ts"
+    ],
+    "compilerOptions": {
+        "strict": true,
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "target": "ESNext",
+        "outDir": "build",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "incremental": true
+    }
+}
