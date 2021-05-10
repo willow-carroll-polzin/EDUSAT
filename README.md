@@ -1,20 +1,4 @@
 # EDUSAT
-This project was developed to provide ...
-
-## Setup & Launch
-To set up this project:
-1. Run the node .msi file to install nodejs
-2. Run the yarn .msi file to install yarn
-3. Run the EDUSAT.bat file. Two new command prompt windows will open up, as well as a webpage in your browser at localhost:8085
-4. If you close the command prompt windows, the GUI will no longer work. Keep them open
-### Browser Application
-
-### Microcontroller Application
-
-## Telemetry
-
-## Circuitry
-# EDUSAT
 ---
 A eletrical power distribution system (EPS) for a FLAT-SAT aimed for class-room use. This repository contains the telemetry, control, and interface software for this system.
 The two main sections of this repo are the EDUSAT Web Application Code (in the folder "EDUSAT_App"), and the EDUSAT Telemetry code for MCU data collection (in the folder "EDUSAT_Telem").
