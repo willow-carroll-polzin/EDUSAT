@@ -1,10 +1,10 @@
 # EDUSAT: A Flatsat Electrical Power System (EPS)
 ### Team Members
-Max Polzin
-Keyanna Coghlan
-Hooman Jazebizadeh
+Max Polzin \
+Keyanna Coghlan \
+Hooman Jazebizadeh \
 
-This document outlines the design of software and hardware for a eletrical power distribution system (EPS) used in "flatsat", a teaching aid simulating a cubesat, aimed for class-room use. This repository contains the telemetry, control, and interface software for this system. \\
+This document outlines the design of software and hardware for a eletrical power distribution system (EPS) used in "flatsat", a teaching aid simulating a cubesat, aimed for class-room use. This repository contains the telemetry, control, and interface software for this system. \
 
 The two main sections of this repo are the EDUSAT Web Application Code (in the folder "EDUSAT_App"), and the EDUSAT Telemetry code for MCU data collection (in the folder "EDUSAT_Telem").
 
@@ -71,11 +71,17 @@ A prototype version is pictured below:
 EDUSAT's telemetry in the form of voltages, currents, and temperatures are gathered on the MCU. This data is then sent via serial port to the client running on the connected computer. 
 
 ### Flashing the MCU
+The MCU can be easily flashed using the Arduino IDE's built in tools or through VS Code's Arduino Extension. See this [link](https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.vscode-arduino) for more information on the extension.
 
 ### Adding more sensors
+The number of sensors being read is currently limited by the number of channels on the ???? MUX. Currently 16 sensors are used, the *SystemStatus* object keeps a list of the voltage, current, and temperature sensors. The size is set via the V_SENSE_SIZE, I_SENSE_SIZE, T_SENSE_SIZE parameters in SystemStatus.h.
 
 ### Using the MCU
+Data from the sensors is updated via the SystemStatus's *updateStatus* function. Telemetry is then sent over the serial connection using the *sendTelemtry* function. Note that this data is sent in the following format:
 
+* ```H,0-V,...,1-V,0-C,...,5-C,0-T,...,3-T,F```
+
+Where the *V,C, and T* represent a integer voltage, current, or temperature. The H and F are used to denote the start and end of a individual message.
 
 ## EDUSAT Software - Interface App
 EDUSAT's main interface is a web-client that can be viewed in any web browser and launched from any computer. In order to launch and open the app, follow the instructions below:
@@ -83,7 +89,7 @@ EDUSAT's main interface is a web-client that can be viewed in any web browser an
 ### Prerequisites
 In order to function properly, yarn (a package manager) must be installed. To do this, visit this [link](https://classic.yarnpkg.com/en/docs/install/#windows-stable).
 
-If you do not already have nodejs installed, you will need to do so using think [link](https://nodejs.org/en/download/). Nodejs allows for Javascript and Typescript to be excuted outside of the browser.
+If you do not already have nodejs installed, you will need to do so using this [link](https://nodejs.org/en/download/). Nodejs allows for Javascript and Typescript to be excuted outside of the browser.
 
 Once nodejs and yarn have been successfully installed, continue on to the next steps.
 
