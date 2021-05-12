@@ -83,6 +83,12 @@ Data from the sensors is updated via the SystemStatus's *updateStatus* function.
 
 Where the *V,C, and T* represent a integer voltage, current, or temperature. The H and F are used to denote the start and end of a individual message.
 
+### Sensor Measurements
+
+*Voltage (???? Voltage divider)
+*Current (???? Current Sensor)
+*Temperature (???? Thermistor) 
+
 ## EDUSAT Software - WebApp
 EDUSAT's main interface is a web-client that can be viewed in any web browser and launched from any computer. In order to launch and open the app, follow the instructions below:
 
