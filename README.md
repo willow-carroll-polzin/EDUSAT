@@ -2,18 +2,18 @@
 ### Team Members
 Max Polzin \
 Keyanna Coghlan \
-Hooman Jazebizadeh \
+Hooman Jazebizadeh
 
-This document outlines the design of software and hardware for a eletrical power distribution system (EPS) used in "flatsat", a teaching aid simulating a cubesat, aimed for class-room use. This repository contains the telemetry, control, and interface software for this system. \
+This document outlines the design of software and hardware for a eletrical power distribution system (EPS) used in "flatsat", a teaching aid simulating a cubesat, aimed for class-room use. This repository contains the telemetry, control, and interface software for this system.
 
 The two main sections of this repo are the EDUSAT Web Application Code (in the folder "EDUSAT_App"), and the EDUSAT Telemetry code for MCU data collection (in the folder "EDUSAT_Telem").
 
 ## Installation and setup:
 To set up this project:
-1. Run the node .msi file to install nodejs
-2. Run the yarn .msi file to install yarn
-3. Run the EDUSAT.bat file. Two new command prompt windows will open up, as well as a webpage in your browser at localhost:8085
-4. If you close the command prompt windows, the GUI will no longer work. Keep them open
+1. Install nodejs
+2. Install yarn
+3. Run the EDUSAT.bat file. Two new command prompt windows will open up, as well as a webpage in your browser at *localhost:8085*
+4. If you close the command prompt windows, the GUI will no longer work. Keep them open.
 
 ## Repo Contents:
 - **EDUSAT.bat**: Main script needed to be excuted, launches web-app.
@@ -83,7 +83,7 @@ Data from the sensors is updated via the SystemStatus's *updateStatus* function.
 
 Where the *V,C, and T* represent a integer voltage, current, or temperature. The H and F are used to denote the start and end of a individual message.
 
-## EDUSAT Software - Interface App
+## EDUSAT Software - WebApp
 EDUSAT's main interface is a web-client that can be viewed in any web browser and launched from any computer. In order to launch and open the app, follow the instructions below:
 
 ### Prerequisites
