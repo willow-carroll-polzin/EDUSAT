@@ -65,7 +65,7 @@ More detailed schematics can be found in the following sections.
 ### EDUSAT Prototypes - (V1.0):
 A prototype version is pictured below:
 
-![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_hardware.png?raw=true)
+![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_protoV1.png?raw=true)
 
 ## EDUSAT Software - Data Collection via Microcontroller
 EDUSAT's telemetry in the form of voltages, currents, and temperatures are gathered on the MCU. This data is then sent via serial port to the client running on the connected computer. 
@@ -74,12 +74,12 @@ EDUSAT's telemetry in the form of voltages, currents, and temperatures are gathe
 The MCU can be easily flashed using the Arduino IDE's built in tools or through VS Code's Arduino Extension. See this [link](https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.vscode-arduino) for more information on the extension.
 
 ### Adding more sensors
-The number of sensors being read is currently limited by the number of channels on the ???? MUX. Currently 16 sensors are used, the *SystemStatus* object keeps a list of the voltage, current, and temperature sensors. The size is set via the V_SENSE_SIZE, I_SENSE_SIZE, T_SENSE_SIZE parameters in SystemStatus.h.
+The number of sensors being read is currently limited by the number of channels on the CD74HC4067 MUX ([link](https://www.sparkfun.com/products/9056). Currently 16 sensors are used, the *SystemStatus* object keeps a list of the voltage, current, and temperature sensors. The size is set via the V_SENSE_SIZE, I_SENSE_SIZE, T_SENSE_SIZE parameters in SystemStatus.h.
 
 ### Using the MCU
 Data from the sensors is updated via the SystemStatus's *updateStatus* function. Telemetry is then sent over the serial connection using the *sendTelemtry* function. Note that this data is sent in the following format:
 
-* ```H,0-V,...,1-V,0-C,...,5-C,0-T,...,3-T,F```
+* ```H,0-V,...,5-V,0-C,...,5-C,0-T,...,3-T,F```
 
 Where the *V,C, and T* represent a integer voltage, current, or temperature. The H and F are used to denote the start and end of a individual message.
 
