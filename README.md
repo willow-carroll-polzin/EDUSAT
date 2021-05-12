@@ -1,4 +1,4 @@
-# EDUSAT: A Flatsat Electrical Power System (EPS)
+# EDUSAT: A Flatsat Electrical Power System
 ### Team Members
 Max Polzin \
 Keyanna Coghlan \
