@@ -46,7 +46,7 @@ To set up this project:
 ## EDUSAT Hardware
 The main components of EDUSAT can be seen in the diagram below:
 
-![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_hardware.png?raw=true)
+![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_blockdiagram.png?raw=true)
 
 ![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_sensors.png?raw=true)
 
@@ -75,6 +75,7 @@ A prototype version is pictured below:
 
 ### Bill of Materials:
 !ADD BOM FOR PROTO!
+!ADD DATA SHEETS FOR MAIN COMPONENTS!
 
 ## EDUSAT Software - Data Collection via Microcontroller
 EDUSAT's telemetry in the form of voltages, currents, and temperatures are gathered on the MCU. This data is then sent via serial port to the client running on the connected computer. 
