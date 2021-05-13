@@ -46,7 +46,7 @@ To set up this project:
 ## EDUSAT Hardware
 The main components of EDUSAT can be seen in the diagram below:
 
-![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_hardware.png?raw=true)
+![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_blockdiagram.png?raw=true)
 
 ![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_sensors.png?raw=true)
 
