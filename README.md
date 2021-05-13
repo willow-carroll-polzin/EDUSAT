@@ -52,20 +52,27 @@ More detailed schematics can be found in the following sections.
 
 ### Maximum Peak Power Tracking (MPPT):
 
-![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_hardware.png?raw=true)
+![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_mppt.png?raw=true)
+
+!UPDATE WITH NEW VALUES!
 
 ### DC-DC Conversion:
 
-![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_hardware.png?raw=true)
+![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_dcdc.png?raw=true)
 
 ### Telemetry:
 
-![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_hardware.png?raw=true)
+![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_telem.png?raw=true)
+
+!UPDATE!
 
 ### EDUSAT Prototypes - (V1.0):
 A prototype version is pictured below:
 
 ![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_protoV1.png?raw=true)
+
+### Bill of Materials:
+!ADD BOM FOR PROTO!
 
 ## EDUSAT Software - Data Collection via Microcontroller
 EDUSAT's telemetry in the form of voltages, currents, and temperatures are gathered on the MCU. This data is then sent via serial port to the client running on the connected computer. 
@@ -84,7 +91,7 @@ Data from the sensors is updated via the SystemStatus's *updateStatus* function.
 Where the *V,C, and T* represent a integer voltage, current, or temperature. The H and F are used to denote the start and end of a individual message.
 
 ### Sensor Measurements
-
+!ADD!
 *Voltage (???? Voltage divider)
 *Current (???? Current Sensor)
 *Temperature (???? Thermistor) 
