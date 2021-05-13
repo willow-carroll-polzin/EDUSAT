@@ -48,6 +48,8 @@ The main components of EDUSAT can be seen in the diagram below:
 
 ![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_hardware.png?raw=true)
 
+![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_sensors.png?raw=true)
+
 More detailed schematics can be found in the following sections.
 
 ### Maximum Peak Power Tracking (MPPT):
