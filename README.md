@@ -1,8 +1,8 @@
 # EDUSAT: A Flatsat Electrical Power System
-### Team Members
-Max Polzin \
-Keyanna Coghlan \
-Hooman Jazebizadeh
+### Team Members - Carleton University | Department of Mechanical & Aerospace Engineering
++ Max Polzin 
++ Keyanna Coghlan 
++ Hooman Jazebizadeh
 
 This document outlines the design of software and hardware for a eletrical power distribution system (EPS) used in "flatsat", a teaching aid simulating a cubesat, aimed for class-room use. This repository contains the telemetry, control, and interface software for this system.
 
@@ -80,11 +80,6 @@ Note the colours around each component:
 + Yellow = A 800 mAH 2S 7.4V Lipo in a 3D printed mount and a extra board that serves as a junction between all the components.
 
 ### Bill of Materials:
-<<<<<<< HEAD
-!ADD BOM FOR PROTO!
-!ADD DATA SHEETS FOR MAIN COMPONENTS!
-
-=======
 ### Sensing Circuit Components
 |Component | Part Number | Description | Source |
 | --- | --- | --- | --- |
@@ -98,7 +93,6 @@ Note the colours around each component:
 #### MPPT Circuit Components
 |Component | Part Number | Description | Source |
 | --- | --- | --- | --- |
->>>>>>> aa3606a39ffdd6f3a1c9febf9b7d4736fe34b2bd
 ## EDUSAT Software - Data Collection via Microcontroller
 EDUSAT's telemetry in the form of voltages, currents, and temperatures are gathered on the MCU. This data is then sent via serial port to the client running on the connected computer. 
 
@@ -120,10 +114,13 @@ Where the *V,C, and T* represent a integer voltage, current, or temperature. The
 
 [ADD TABLE]
 
-**Current Sensors**: Current sensing is achieved using the 
+**Current Sensors**: Current sensing is achieved using the MA4080 in series with various points throughout the system. Since the measured currents are sometimes small and the MAX4080 outputs a voltage equivalent to the measured current, ???? amplifiers are added between the current sensors and the MUX to allow for a more realiable measurement on-board the Arduino. The calculation to convert these measurements back to current is shown below.
 
-**Temperature Sensors**:
+[ADD Calculation]
 
+**Temperature Sensors**: ???? thermistors are used to measure temperature at various points throughout the system. These are mechanically mounted on various IC's such as the LT???? used in the MPPT system. The circuitry for the thermistors is very similar to that of the voltage dividers, as such the measured signal is fed directly into the MUX and small calculation is performed by the Arduino to convert the measured voltage to a temperature, as shown below.
+
+[ADD Calculation]
 
 ## EDUSAT Software - WebApp
 EDUSAT's main interface is a web-client that can be viewed in any web browser and launched from any computer. In order to launch and open the app, follow the instructions below:
