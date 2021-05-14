@@ -145,4 +145,12 @@ To download the data into a csv:
 ### Closing the System
 Once done with the system, it can be closed by pressing ```CTRL+C``` in each command prompt browser, followed by: ```y```  then ```ENTER``` when the command prompt asks if you wish to terminate the program.
 
+## External Resources
+### Hardware Manuals
+* [Sparkfun MUX](https://www.digikey.ca/en/products/detail/sparkfun-electronics/BOB-09056/5673767)
+* [Sparkfun Buck-Boost Converter]()
+* [9V Buck-Boost Converter]()
+### Software Installation Links
+
+
 If issues arise during the setup, installation, or use of this code, feel free to contact: keyanna.coghlan@carleton.ca or max.polzin@carleton.ca.
