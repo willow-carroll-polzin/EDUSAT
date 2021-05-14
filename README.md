@@ -74,7 +74,12 @@ A prototype version is pictured below:
 ![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_protoV1.png?raw=true)
 
 ### Bill of Materials:
-!ADD BOM FOR PROTO!
+### Hardware
+|Component | Part Number | Description | Source |
+| --- | --- | --- | --- |
+|Sparkfun MUX | BOB-09056 | 16 Channel Analog to Analog Mux | [Digikey] (https://www.digikey.ca/en/products/detail/sparkfun-electronics/BOB-09056/5673767)
+|[Sparkfun Buck-Boost Converter](https://www.sparkfun.com/products/15208)
+|[9V Buck-Boost Converter](https://www.amazon.ca/Converter-Step-Down-Automatic-Adjustable-Stabilizer/dp/B07PWCKM5Z/ref=sr_1_3_sspa?dchild=1&keywords=buck+boost+converter&qid=1621027169&sr=8-3-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExNzhDUEtURFo1VTY4JmVuY3J5cHRlZElkPUEwMzUyMDkzM0RBSDNGWUxSWVlMUyZlbmNyeXB0ZWRBZElkPUEwNzM5MDg4MzhSSk40OFBRVjI0VSZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU=)
 
 ## EDUSAT Software - Data Collection via Microcontroller
 EDUSAT's telemetry in the form of voltages, currents, and temperatures are gathered on the MCU. This data is then sent via serial port to the client running on the connected computer. 
@@ -146,10 +151,7 @@ To download the data into a csv:
 Once done with the system, it can be closed by pressing ```CTRL+C``` in each command prompt browser, followed by: ```y```  then ```ENTER``` when the command prompt asks if you wish to terminate the program.
 
 ## External Resources
-### Hardware Manuals
-* [Sparkfun MUX](https://www.digikey.ca/en/products/detail/sparkfun-electronics/BOB-09056/5673767)
-* [Sparkfun Buck-Boost Converter]()
-* [9V Buck-Boost Converter]()
+
 ### Software Installation Links
 
 
