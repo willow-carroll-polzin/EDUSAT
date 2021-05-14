@@ -73,6 +73,12 @@ A prototype version is pictured below:
 
 ![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_protoV1.png?raw=true)
 
+Note the colours around each component:
++ RED = MPPT and system input (either through a solar panel or a PSU).
++ BLUE = Telemetry boards, the one on the left is full of current sensors and amplifiers. The one on the right has the voltage divider, MUX, and arduino. Headers are used to connect the current sensing board and temperature sensors to the MUX.
++ Green = DC-DC conversion and system output. The top board is the 9V buck-boost, then the 3V3 and 5V boards are mounted side by side on the telemetry board.
++ Yellow = A 800 mAH 2S 7.4V Lipo in a 3D printed mount and a extra board that serves as a junction between all the components.
+
 ### Bill of Materials:
 !ADD BOM FOR PROTO!
 !ADD DATA SHEETS FOR MAIN COMPONENTS!
@@ -94,10 +100,14 @@ Data from the sensors is updated via the SystemStatus's *updateStatus* function.
 Where the *V,C, and T* represent a integer voltage, current, or temperature. The H and F are used to denote the start and end of a individual message.
 
 ### Sensor Measurements
-!ADD!
-*Voltage (???? Voltage divider)
-*Current (???? Current Sensor)
-*Temperature (???? Thermistor) 
+**Voltage Sensors**: Voltage sensing is achieved by simply connecting various points of the system to the pins of the MUX. Since the arduino is limited to 5V on its digital and analog pins some votlage dividers are used when measuring certain parts of the system. For example the 9V DC-DC output is measured and run through a voltage divider to ensure the pins of the Arduino are not damaged. The calculations to convert the reduced voltage back to the actual value at the test point are found below for each sensor in the circuit.
+
+[ADD TABLE]
+
+**Current Sensors**: Current sensing is achieved using the 
+
+**Temperature Sensors**:
+
 
 ## EDUSAT Software - WebApp
 EDUSAT's main interface is a web-client that can be viewed in any web browser and launched from any computer. In order to launch and open the app, follow the instructions below:
