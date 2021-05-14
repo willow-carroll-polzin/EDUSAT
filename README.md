@@ -80,19 +80,21 @@ Note the colours around each component:
 + Yellow = A 800 mAH 2S 7.4V Lipo in a 3D printed mount and a extra board that serves as a junction between all the components.
 
 ### Bill of Materials:
-### Sensing Circuit Components
+#### MPPT Components
 |Component | Part Number | Description | Source |
 | --- | --- | --- | --- |
-|Sparkfun MUX | BOB-09056 | 16 Channel Analog to Analog Mux | [Digikey](https://www.digikey.ca/en/products/detail/sparkfun-electronics/BOB-09056/5673767)
 
-#### Power Conversion Components
+#### DC-DC Conversion Components
 |Component | Part Number | Description | Source |
 | --- | --- | --- | --- |
 |Sparkfun Buck-Boost Converter | COM15208 | Buck Boost Convert with Variable output (3.3V, 5V, or custom) | [Digikey](https://www.digikey.ca/en/products/detail/sparkfun-electronics/COM-15208/10187090?s=N4IgTCBcDaIMYHsC2BaAjAVjABgBwgF0BfIA)
 |Variable Output Buck-Boost Converter| - | 5V to 30V input, 1.25V to 30V output, DC-DC Converter | [Amazon](https://www.amazon.ca/Converter-Step-Down-Automatic-Adjustable-Stabilizer/dp/B07PWCKM5Z/ref=sr_1_3_sspa?dchild=1&keywords=buck+boost+converter&qid=1621027169&sr=8-3-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExNzhDUEtURFo1VTY4JmVuY3J5cHRlZElkPUEwMzUyMDkzM0RBSDNGWUxSWVlMUyZlbmNyeXB0ZWRBZElkPUEwNzM5MDg4MzhSSk40OFBRVjI0VSZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU=)
-#### MPPT Circuit Components
+
+### Telemetry components
 |Component | Part Number | Description | Source |
 | --- | --- | --- | --- |
+|Sparkfun MUX | BOB-09056 | 16 Channel Analog to Analog Mux | [Digikey](https://www.digikey.ca/en/products/detail/sparkfun-electronics/BOB-09056/5673767)
+
 ## EDUSAT Software - Data Collection via Microcontroller
 EDUSAT's telemetry in the form of voltages, currents, and temperatures are gathered on the MCU. This data is then sent via serial port to the client running on the connected computer. 
 
