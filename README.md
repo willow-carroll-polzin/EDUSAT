@@ -15,6 +15,9 @@ To set up this project:
 3. Run the EDUSAT.bat file. Two new command prompt windows will open up, as well as a webpage in your browser at *localhost:8085*
 4. If you close the command prompt windows, the GUI will no longer work. Keep them open.
 
+### External Resources
+**Software Installation Links:** [ADD SOFTWARE USED]
+
 ## Repo Contents:
 - **EDUSAT.bat**: Main script needed to be excuted, launches web-app.
 - **Hardware**: All hardware documentation.
@@ -170,11 +173,6 @@ To download the data into a csv:
 
 ### Closing the System
 Once done with the system, it can be closed by pressing ```CTRL+C``` in each command prompt browser, followed by: ```y```  then ```ENTER``` when the command prompt asks if you wish to terminate the program.
-
-## External Resources
-
-### Software Installation Links
-[ADD SOFTWARE USED]
 
 ## Note
 If issues arise during the setup, installation, or use of this code, feel free to contact: keyanna.coghlan@carleton.ca or max.polzin@carleton.ca.
