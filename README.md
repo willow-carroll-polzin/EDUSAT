@@ -174,6 +174,7 @@ Once done with the system, it can be closed by pressing ```CTRL+C``` in each com
 ## External Resources
 
 ### Software Installation Links
+[ADD SOFTWARE USED]
 
-
+## Note
 If issues arise during the setup, installation, or use of this code, feel free to contact: keyanna.coghlan@carleton.ca or max.polzin@carleton.ca.
