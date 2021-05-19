@@ -69,6 +69,8 @@ More detailed schematics can be found in the following sections.
 
 ![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_telem.png?raw=true)
 
+![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_sense.png?raw=true)
+
 !UPDATE!
 
 ### EDUSAT Prototypes - (V1.0):
