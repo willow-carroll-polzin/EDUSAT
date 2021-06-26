@@ -10,13 +10,17 @@ The two main sections of this repo are the EDUSAT Web Application Code (in the f
 
 ## Installation and setup:
 To set up this project:
-1. Install nodejs [add installation link]
-2. Install yarn [add installation link]
+1. Install nodejs [link](https://nodejs.org/en/download/)
+3. Install yarn (prefered package manager, can be installed via nodejs's npm) [link](https://classic.yarnpkg.com/en/docs/install/#windows-stable)
 3. Run the EDUSAT.bat file. Two new command prompt windows will open up, as well as a webpage in your browser at *localhost:8085*
 4. If you close the command prompt windows, the GUI will no longer work. Keep them open.
 
-### External Resources
-**Software Installation Links:** [ADD SOFTWARE USED]
+EDUSAT's telemtry is viualized in a Web interface powered by Typescipt and Nodejs. Nodejs allows for Javascript and Typescript to be excuted outside of a browser, in this case it is neccesary as it allows for direct acces to the serial port to commuincate with the microcontroller gathering the telemetry.
+
+### Contributing to this project
+[ADD info on how to edit the code, e.g. how to use yarn and react]
+
+[ADD info on how to use EasyEDA]
 
 ## Repo Contents:
 - **EDUSAT.bat**: Main script needed to be excuted, launches web-app.
@@ -59,8 +63,6 @@ More detailed schematics can be found in the following sections.
 
 ![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_mppt.png?raw=true)
 
-!UPDATE WITH NEW VALUES!
-
 ### DC-DC Conversion:
 
 ![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_dcdc.png?raw=true)
@@ -70,8 +72,6 @@ More detailed schematics can be found in the following sections.
 ![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_telem.png?raw=true)
 
 ![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_sense.png?raw=true)
-
-!UPDATE!
 
 ### EDUSAT Prototypes - (V1.0):
 A prototype version is pictured below:
@@ -131,13 +131,6 @@ Where the *V,C, and T* represent a integer voltage, current, or temperature. The
 
 ## EDUSAT Software - WebApp
 EDUSAT's main interface is a web-client that can be viewed in any web browser and launched from any computer. In order to launch and open the app, follow the instructions below:
-
-### Prerequisites
-[This should be moved after next line, need to install nodejs before yarn] In order to function properly, yarn (a package manager) must be installed. To do this, visit this [link](https://classic.yarnpkg.com/en/docs/install/#windows-stable).[why not version 2?]
-
-If you do not already have nodejs installed, you will need to do so using this [link](https://nodejs.org/en/download/). Nodejs allows for Javascript and Typescript to be excuted outside of the browser.
-
-Once nodejs and yarn have been successfully installed, continue on to the next steps.
 
 ### Bash Script Setup
 In the main folder, there is a bash script (" .sh" extension). To run this script, simply double click the script file in your file explorer. If the computer that you are running on does not allow you run bash scripts, follow the command line setup instructions below [DO you mean EDUSAT.bat?]
