@@ -23,7 +23,7 @@ export var CSV_DATA: string[][] = [[]];
 //Initial state of redux store
 const initial_State: State = {
     sensors: {
-        voltage: [1, 2, 3, 4, 5, 6],
+        voltage: [0, 0, 0, 0, 0, 0],
         current: [0, 0, 0, 0, 0, 0],
         temperature: [0, 0, 0, 0],
     },
@@ -209,42 +209,42 @@ export var voltageChart = new Chart("voltageChart", {
         labels: [],
         datasets: [
             {
-                label: "Temperature #1",
+                label: "Voltage #1",
                 borderColor: "red",
                 data: [],
                 fill: false,
                 hidden: false,
             },
             {
-                label: "Temperature #2",
+                label: "Voltage #2",
                 borderColor: "orange",
                 data: [],
                 fill: false,
                 hidden: true,
             },
             {
-                label: "Temperature #3",
+                label: "Voltage #3",
                 borderColor: "green",
                 data: [],
                 fill: false,
                 hidden: true,
             },
             {
-                label: "Temperature #4",
+                label: "Voltage #4",
                 borderColor: "blue",
                 data: [],
                 fill: false,
                 hidden: true,
             },
             {
-                label: "Temperature #5",
+                label: "Voltage #5",
                 borderColor: "purple",
                 data: [],
                 fill: false,
                 hidden: true,
             },
             {
-                label: "Temperature #6",
+                label: "Voltage #6",
                 borderColor: "black",
                 data: [],
                 fill: false,
