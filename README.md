@@ -10,8 +10,8 @@ The two main sections of this repo are the EDUSAT Web Application Code (in the f
 
 ## Installation and setup:
 To set up this project:
-1. Install nodejs
-2. Install yarn
+1. Install nodejs [add installation link]
+2. Install yarn [add installation link]
 3. Run the EDUSAT.bat file. Two new command prompt windows will open up, as well as a webpage in your browser at *localhost:8085*
 4. If you close the command prompt windows, the GUI will no longer work. Keep them open.
 
@@ -133,14 +133,14 @@ Where the *V,C, and T* represent a integer voltage, current, or temperature. The
 EDUSAT's main interface is a web-client that can be viewed in any web browser and launched from any computer. In order to launch and open the app, follow the instructions below:
 
 ### Prerequisites
-In order to function properly, yarn (a package manager) must be installed. To do this, visit this [link](https://classic.yarnpkg.com/en/docs/install/#windows-stable).
+[This should be moved after next line, need to install nodejs before yarn] In order to function properly, yarn (a package manager) must be installed. To do this, visit this [link](https://classic.yarnpkg.com/en/docs/install/#windows-stable).[why not version 2?]
 
 If you do not already have nodejs installed, you will need to do so using this [link](https://nodejs.org/en/download/). Nodejs allows for Javascript and Typescript to be excuted outside of the browser.
 
 Once nodejs and yarn have been successfully installed, continue on to the next steps.
 
 ### Bash Script Setup
-In the main folder, there is a bash script (" .sh" extension). To run this script, simply double click the script file in your file explorer. If the computer that you are running on does not allow you run bash scripts, follow the command line setup instructions below
+In the main folder, there is a bash script (" .sh" extension). To run this script, simply double click the script file in your file explorer. If the computer that you are running on does not allow you run bash scripts, follow the command line setup instructions below [DO you mean EDUSAT.bat?]
 
 ### Alternate Command line set up (to use if the bash script cannot execute)
 1. Open up a command prompt
