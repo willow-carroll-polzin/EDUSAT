@@ -23,7 +23,7 @@ export var CSV_DATA: string[][] = [[]];
 //Initial state of redux store
 const initial_State: State = {
     sensors: {
-        voltage: [1, 2, 3, 4, 5, 6],
+        voltage: [0, 0, 0, 0, 0, 0],
         current: [0, 0, 0, 0, 0, 0],
         temperature: [0, 0, 0, 0],
     },
