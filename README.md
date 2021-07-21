@@ -10,18 +10,26 @@ The two main sections of this repo are the EDUSAT Web Application Code (in the f
 
 ## Installation and setup:
 To set up this project:
-1. Install nodejs:  
+1. Clone the git repository. Tutorial for basic git functions found [here](https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-clone).
+2. Install nodejs:  
     - [Windows or Mac OS X](https://nodejs.org/en/download/)
     - [Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04)
-2. Install yarn. It is the prefered package manager, and can be installed via nodejs's npm. We use classic yarn (v1), but other versions should be compatible.
+3. Install yarn. It is the prefered package manager, and can be installed via nodejs's npm. We use classic yarn (v1), but other versions should be compatible.
     - [All Operating Systems](https://classic.yarnpkg.com/en/docs/install/#windows-stable)
-3. Run the EDUSAT.bat file. Two new command prompt windows will open up, as well as a webpage in your browser at *localhost:8085*. An EDUSAT.sh file for Linux based systems is being created, but has not been added to the git repository yet.
-4. *NOTE*: If you close the command prompt windows, the GUI will no longer work. Keep them open.
+4. Run the EDUSAT.bat file. Two new command prompt windows will open up, as well as a webpage in your browser at *localhost:8085*. An EDUSAT.sh file for Linux based systems is being created, but has not been added to the git repository yet.
+5. *NOTE*: If you close the command prompt windows, the GUI will no longer work. Keep them open.
 
 EDUSAT's telemtry is viualized in a Web interface powered by Typescipt and Nodejs. Nodejs allows for Javascript and Typescript to be excuted outside of a browser, in this case it is neccesary as it allows for direct acces to the serial port to commuincate with the microcontroller gathering the telemetry.
 
 ### Contributing to this project
-[ADD info on how to edit the code, e.g. how to use yarn and react]
+To make any changes to this project, knowledge of the software and libraries used to develop it will be required. Edits to the overall look of the code can be made by modifying the *index.html* and *style.css* files.
+
+Edits to the look of specific features of the UI can be made by altering snippets of code contained within `<React.Fragment></React.Fragment>` braces found in the App.tsx file (EDUSAT>EDUSAT_App>webpage>src>App.tsx).
+
+If any additional library dependencies are required, they can be added to the *package.json* manually, or with yarn by running the following command in the EDUSAT>EDUSAT_App>webpage folder:
+``yarn add DEPENDENCY_NAME`` 
+
+For more information about React (if you would like to use React to add more features), follow this [link](https://reactjs.org/).
 
 [ADD info on how to use EasyEDA]
 
