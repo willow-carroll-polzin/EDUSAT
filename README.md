@@ -24,10 +24,11 @@ EDUSAT's telemtry is viualized in a Web interface powered by Typescipt and Nodej
 ### Contributing to this project
 To make any changes to this project, knowledge of the software and libraries used to develop it will be required. Edits to the overall look of the code can be made by modifying the *index.html* and *style.css* files.
 
-Edits to the look of specific features of the UI can be made by altering snippets of code contained within `<React.Fragment></React.Fragment>` braces found in the App.tsx file (EDUSAT>EDUSAT_App>webpage>src>App.tsx).
+Edits to the look of specific features of the UI can be made by altering snippets of code contained within `<React.Fragment></React.Fragment>` braces found in the App.tsx file (`EDUSAT>EDUSAT_App>webpage>src>App.tsx`).
 
-If any additional library dependencies are required, they can be added to the *package.json* manually, or with yarn by running the following command in the EDUSAT>EDUSAT_App>webpage folder:
-``yarn add DEPENDENCY_NAME`` 
+If any additional library dependencies are required, they can be added to the *package.json* manually, or with yarn by running the following command in the `EDUSAT>EDUSAT_App>webpage` folder:
+
+```yarn add DEPENDENCY_NAME``` 
 
 For more information about React (if you would like to use React to add more features), follow this [link](https://reactjs.org/).
 
