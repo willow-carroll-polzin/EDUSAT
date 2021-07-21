@@ -10,10 +10,13 @@ The two main sections of this repo are the EDUSAT Web Application Code (in the f
 
 ## Installation and setup:
 To set up this project:
-1. Install nodejs [link](https://nodejs.org/en/download/)
-3. Install yarn (prefered package manager, can be installed via nodejs's npm) [link](https://classic.yarnpkg.com/en/docs/install/#windows-stable)
-3. Run the EDUSAT.bat file. Two new command prompt windows will open up, as well as a webpage in your browser at *localhost:8085*
-4. If you close the command prompt windows, the GUI will no longer work. Keep them open.
+1. Install nodejs:  
+    - [Windows or Mac OS X](https://nodejs.org/en/download/)
+    - [Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04)
+2. Install yarn. It is the prefered package manager, and can be installed via nodejs's npm. We use classic yarn (v1), but other versions should be compatible.
+    - [All Operating Systems](https://classic.yarnpkg.com/en/docs/install/#windows-stable)
+3. Run the EDUSAT.bat file. Two new command prompt windows will open up, as well as a webpage in your browser at *localhost:8085*. An EDUSAT.sh file for Linux based systems is being created, but has not been added to the git repository yet.
+4. *NOTE*: If you close the command prompt windows, the GUI will no longer work. Keep them open.
 
 EDUSAT's telemtry is viualized in a Web interface powered by Typescipt and Nodejs. Nodejs allows for Javascript and Typescript to be excuted outside of a browser, in this case it is neccesary as it allows for direct acces to the serial port to commuincate with the microcontroller gathering the telemetry.
 
