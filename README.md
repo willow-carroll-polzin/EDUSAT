@@ -139,13 +139,17 @@ Where the *V,C, and T* represent a integer voltage, current, or temperature. The
 
 **Temperature Sensors**: ???? thermistors are used to measure temperature at various points throughout the system. These are mechanically mounted on various IC's such as the LT???? used in the MPPT system. The circuitry for the thermistors is very similar to that of the voltage dividers, as such the measured signal is fed directly into the MUX and small calculation is performed by the Arduino to convert the measured voltage to a temperature, as shown below.
 
-[ADD Calculation]
+R<sub>t</sub> = 10000 * (5/V - 1)
+
+Temperature = (1 / ((1 / 298.15) + (log(R<sub>t</sub> / 2000) / 3500))) - 273.15
+
+This above formula provides temperature in Celsius.
 
 ## EDUSAT Software - WebApp
 EDUSAT's main interface is a web-client that can be viewed in any web browser and launched from any computer. In order to launch and open the app, follow the instructions below:
 
-### Bash Script Setup
-In the main folder, there is a bash script (" .sh" extension). To run this script, simply double click the script file in your file explorer. If the computer that you are running on does not allow you run bash scripts, follow the command line setup instructions below [DO you mean EDUSAT.bat?]
+### Script Setup
+In the main folder, there is a batch script (" .bat" extension). To run this script, simply double click the script file in your file explorer. If the computer that you are running on does not allow you run these scripts, follow the command line setup instructions below.
 
 ### Alternate Command line set up (to use if the bash script cannot execute)
 1. Open up a command prompt
