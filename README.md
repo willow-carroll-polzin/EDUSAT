@@ -106,7 +106,11 @@ On the MPPT and system input boards, there are three potentiometers. From top to
 |Component | Part Number | Description | Source |
 | --- | --- | --- | --- | 
 | Max Peak Power Tracking Chip | LT3652EMSE#PBF | IC BATT CHG MULTI-CHEM 12MSOP| [Digikey](https://www.digikey.ca/en/products/detail/linear-technology-analog-devices/LT3652EMSE-PBF/2225686)| 
-| Chip Adapter | IPC0078 | MSOP-12 TO DIP-16 SMT ADAPTER | [Digikey](https://www.digikey.com/en/products/detail/chip-quik-inc/IPC0078/5014744) 
+| Chip Adapter | IPC0078 | MSOP-12 TO DIP-16 SMT ADAPTER | [Digikey](https://www.digikey.com/en/products/detail/chip-quik-inc/IPC0078/5014744) |
+| Shunt Resistor| PWR220T-20-1R00F | 1 Ohm 1% Resistor| [Digikey](https://www.digikey.ca/en/products/detail/vishay-dale/MRA-121R000FE12/953773)|
+
+
+
 #### DC-DC Conversion Components
 |Component | Part Number | Description | Source |
 | --- | --- | --- | --- |
@@ -117,7 +121,6 @@ On the MPPT and system input boards, there are three potentiometers. From top to
 |Component | Part Number | Description | Source |
 | --- | --- | --- | --- |
 |Sparkfun MUX | BOB-09056 | 16 Channel Analog to Analog Mux | [Digikey](https://www.digikey.ca/en/products/detail/sparkfun-electronics/BOB-09056/5673767)|
-|Temperature Sensors | LM35DZ/NOPB-ND| SENSOR ANALOG 0C-100C | [Digikey](https://www.digikey.ca/short/pwf0fj)|
 |Temperature Sensors | NXRT15XM202EA1B040| THERMISTOR NTC 2KOHM 3500K BEAD| [Digikey](https://www.digikey.ca/product-detail/en/NXRT15XM202EA1B040/490-7170-ND/3900401/?itemSeq=305110767)|
 |Current Sensor| MAX4080FASA+T| Current Sensor| [Digikey](https://www.digikey.ca/en/products/detail/maxim-integrated/MAX4080FASA-T/7603765)|
 |SMD Adapter| 1528-1071-ND| Adapter for mounting the MAX4080| [Digikey](https://www.digikey.ca/short/pf3q9n)|
