@@ -32,7 +32,9 @@ If any additional library dependencies are required, they can be added to the *p
 
 For more information about React (if you would like to use React to add more features), follow this [link](https://reactjs.org/).
 
-[ADD info on how to use EasyEDA]
+Changes made to the micro-controller code can simply be made in your editor of choice and flashed onto the Arduino in the system.
+
+Changes to the hardware schematics can be made by editing the schematic file provided in the Google drive (please email for access to this). EasyEDA can be used to edit this files, simply upload the file at the following [link](https://easyeda.com/editor)
 
 ## Repo Contents:
 - **EDUSAT.bat**: Main script needed to be excuted, launches web-app.
@@ -74,6 +76,7 @@ More detailed schematics can be found in the following sections.
 ### Maximum Peak Power Tracking (MPPT):
 
 ![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_mppt.png?raw=true)
+Note the potentiometer values (components VR1, VR2, VR3), these are used to allow for a 12V input and a 7.4V output.
 
 ### DC-DC Conversion:
 
@@ -96,7 +99,7 @@ Note the colours around each component:
 + Green = DC-DC conversion and system output. The top board is the 9V buck-boost, then the 3V3 and 5V boards are mounted side by side on the telemetry board.
 + Yellow = A 800 mAH 2S 7.4V Lipo in a 3D printed mount and a extra board that serves as a junction between all the components.
 
-On the MPPT and system input boards, there are three potentiometers. From top to bottom, these potentiometers correspond to VR2, VR3, and VR1 in the schematic.
+On the MPPT and system input boards, there are three potentiometers. From top to bottom, these potentiometers correspond to VR2, VR3, and VR1 in the MPPT schematic. Their values indicated in the schematic allow for a 7.4V output to the COM7/BATT+ output to charge the battery.
 
 ### Bill of Materials:
 #### MPPT Components
@@ -131,7 +134,7 @@ Data from the sensors is updated via the SystemStatus's *updateStatus* function.
 Where the *V,C, and T* represent a integer voltage, current, or temperature. The H and F are used to denote the start and end of a individual message.
 
 ### Sensor Measurements
-**Voltage Sensors**: Voltage sensing is achieved by simply connecting various points of the system to the pins of the MUX. Since the arduino is limited to 5V on its digital and analog pins some votlage dividers are used when measuring certain parts of the system. For example the 9V DC-DC output is measured and run through a voltage divider to ensure the pins of the Arduino are not damaged. The calculations to convert the reduced voltage back to the actual value at the test point are found below for each sensor in the circuit.
+**Voltage Sensors**: Voltage sensing is achieved by simply connecting various points of the system to the pins of the MUX, seen in the Telemetry schematic on pins 16-21 of the MUX (U2). Since the arduino is limited to 5V on its digital and analog pins some votlage dividers are used when measuring certain parts of the system. For example the 9V DC-DC output is measured and run through a voltage divider to ensure the pins of the Arduino are not damaged. The calculations to convert the reduced voltage back to the actual value at the test point are found below for each sensor in the circuit.
 
 |Voltage Sensor Number | Gain|
 | --- | --- |
@@ -143,12 +146,11 @@ Where the *V,C, and T* represent a integer voltage, current, or temperature. The
 Actual Voltage = Measured Voltage * Gain
 
 
-
-**Current Sensors**: Current sensing is achieved using the MA4080 in series with various points throughout the system. Since the measured currents are sometimes small and the MAX4080 outputs a voltage equivalent to the measured current, ???? amplifiers are added between the current sensors and the MUX to allow for a more realiable measurement on-board the Arduino. The calculation to convert these measurements back to current is shown below.
+**Current Sensors**: Current sensing is achieved using the MA4080 in series with various points throughout the system as shown in the Telemetry schematic. Since the measured currents are sometimes small and the MAX4080 outputs a voltage equivalent to the measured current, LM348N amplifiers are used between the current sensors and the MUX to allow for a more realiable measurement on-board the Arduino. The calculation to convert these measurements back to current is shown below.
 
 [ADD Calculation]
 
-**Temperature Sensors**: ???? thermistors are used to measure temperature at various points throughout the system. These are mechanically mounted on various IC's such as the LT3652 used in the MPPT system. The circuitry for the thermistors is very similar to that of the voltage dividers, as such the measured signal is fed directly into the MUX and small calculation is performed by the Arduino to convert the measured voltage to a temperature, as shown below.
+**Temperature Sensors**: 2 kOhm, 3500K thermistors are used to measure temperature at various points throughout the system. These are mechanically mounted on various IC's such as the LT3652 used in the MPPT system. The circuitry for the thermistors is very similar to that of the voltage dividers (see the Telemetry schematic, R29,31,33,35), as such the measured signal is fed directly into the MUX and small calculation is performed by the Arduino to convert the measured voltage to a temperature, as shown below.
 
 R<sub>t</sub> = 10000 * (5/V - 1)
 
@@ -197,4 +199,4 @@ To download the data into a csv:
 Once done with the system, it can be closed by pressing ```CTRL+C``` in each command prompt browser, followed by: ```y```  then ```ENTER``` when the command prompt asks if you wish to terminate the program.
 
 ## Note
-If issues arise during the setup, installation, or use of this code, feel free to contact: keyanna.coghlan@carleton.ca or max.polzin@carleton.ca.
+If issues arise during the setup, installation, or use of this code or you need access to the Google drive, feel free to contact: keyanna.coghlan@carleton.ca or max.polzin@carleton.ca.
