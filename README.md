@@ -16,8 +16,11 @@ To set up this project:
     - [Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04)
 3. Install yarn. It is the prefered package manager, and can be installed via nodejs's npm. We use classic yarn (v1), but other versions should be compatible.
     - [All Operating Systems](https://classic.yarnpkg.com/en/docs/install/#windows-stable)
-4. Run the EDUSAT.bat file (Windows Only). Two new command prompt windows will open up, as well as a webpage in your browser at *localhost:8085*. An EDUSAT.sh file for Linux based systems is being created, but has not been added to the git repository yet.
-5. *NOTE*: If you close the command prompt windows, the GUI will no longer work. Keep them open.
+4. Run the EDUSAT.bat file (Windows Only). Two new command prompt windows will open up, as well as a webpage in your browser at *localhost:8085*. 
+
+*NOTE*: An EDUSAT.sh file for Linux based systems is being created, but has not been added to the git repository yet.
+
+*NOTE*: If you close the command prompt windows, the GUI will no longer work. Keep them open.
 
 EDUSAT's telemtry is visualized in a Web interface powered by Typescipt and Nodejs. Nodejs allows for Javascript and Typescript to be excuted outside of a browser, in this case it is neccesary as it allows for direct acces to the serial port to commuincate with the microcontroller gathering the telemetry.
 
