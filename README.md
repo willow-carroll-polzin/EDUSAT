@@ -133,13 +133,22 @@ Where the *V,C, and T* represent a integer voltage, current, or temperature. The
 ### Sensor Measurements
 **Voltage Sensors**: Voltage sensing is achieved by simply connecting various points of the system to the pins of the MUX. Since the arduino is limited to 5V on its digital and analog pins some votlage dividers are used when measuring certain parts of the system. For example the 9V DC-DC output is measured and run through a voltage divider to ensure the pins of the Arduino are not damaged. The calculations to convert the reduced voltage back to the actual value at the test point are found below for each sensor in the circuit.
 
-[ADD TABLE]
+|Voltage Sensor Number | Gain|
+| --- | --- |
+| 0 & 1 | 1|
+| 2 & 3 | 3 |
+| 4 | 1.7 |
+|5 | 2 |
+
+Actual Voltage = Measured Voltage * Gain
+
+
 
 **Current Sensors**: Current sensing is achieved using the MA4080 in series with various points throughout the system. Since the measured currents are sometimes small and the MAX4080 outputs a voltage equivalent to the measured current, ???? amplifiers are added between the current sensors and the MUX to allow for a more realiable measurement on-board the Arduino. The calculation to convert these measurements back to current is shown below.
 
 [ADD Calculation]
 
-**Temperature Sensors**: ???? thermistors are used to measure temperature at various points throughout the system. These are mechanically mounted on various IC's such as the LT???? used in the MPPT system. The circuitry for the thermistors is very similar to that of the voltage dividers, as such the measured signal is fed directly into the MUX and small calculation is performed by the Arduino to convert the measured voltage to a temperature, as shown below.
+**Temperature Sensors**: ???? thermistors are used to measure temperature at various points throughout the system. These are mechanically mounted on various IC's such as the LT3652 used in the MPPT system. The circuitry for the thermistors is very similar to that of the voltage dividers, as such the measured signal is fed directly into the MUX and small calculation is performed by the Arduino to convert the measured voltage to a temperature, as shown below.
 
 R<sub>t</sub> = 10000 * (5/V - 1)
 
