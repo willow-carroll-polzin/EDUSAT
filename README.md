@@ -19,7 +19,7 @@ To set up this project:
 4. Run the EDUSAT.bat file. Two new command prompt windows will open up, as well as a webpage in your browser at *localhost:8085*. An EDUSAT.sh file for Linux based systems is being created, but has not been added to the git repository yet.
 5. *NOTE*: If you close the command prompt windows, the GUI will no longer work. Keep them open.
 
-EDUSAT's telemtry is viualized in a Web interface powered by Typescipt and Nodejs. Nodejs allows for Javascript and Typescript to be excuted outside of a browser, in this case it is neccesary as it allows for direct acces to the serial port to commuincate with the microcontroller gathering the telemetry.
+EDUSAT's telemtry is visualized in a Web interface powered by Typescipt and Nodejs. Nodejs allows for Javascript and Typescript to be excuted outside of a browser, in this case it is neccesary as it allows for direct acces to the serial port to commuincate with the microcontroller gathering the telemetry.
 
 ### Contributing to this project
 To make any changes to this project, knowledge of the software and libraries used to develop it will be required. Edits to the overall look of the code can be made by modifying the *index.html* and *style.css* files.
@@ -95,6 +95,8 @@ Note the colours around each component:
 + BLUE = Telemetry boards, the one on the left is full of current sensors and amplifiers. The one on the right has the voltage divider, MUX, and arduino. Headers are used to connect the current sensing board and temperature sensors to the MUX.
 + Green = DC-DC conversion and system output. The top board is the 9V buck-boost, then the 3V3 and 5V boards are mounted side by side on the telemetry board.
 + Yellow = A 800 mAH 2S 7.4V Lipo in a 3D printed mount and a extra board that serves as a junction between all the components.
+
+On the MPPT and system input boards, there are three potentiometers. From top to bottom, these potentiometers correspond to VR2, VR3, and VR1 in the schematic.
 
 ### Bill of Materials:
 #### MPPT Components
