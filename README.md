@@ -16,7 +16,7 @@ To set up this project:
     - [Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04)
 3. Install yarn. It is the prefered package manager, and can be installed via nodejs's npm. We use classic yarn (v1), but other versions should be compatible.
     - [All Operating Systems](https://classic.yarnpkg.com/en/docs/install/#windows-stable)
-4. Run the EDUSAT.bat file. Two new command prompt windows will open up, as well as a webpage in your browser at *localhost:8085*. An EDUSAT.sh file for Linux based systems is being created, but has not been added to the git repository yet.
+4. Run the EDUSAT.bat file (Windows Only). Two new command prompt windows will open up, as well as a webpage in your browser at *localhost:8085*. An EDUSAT.sh file for Linux based systems is being created, but has not been added to the git repository yet.
 5. *NOTE*: If you close the command prompt windows, the GUI will no longer work. Keep them open.
 
 EDUSAT's telemtry is visualized in a Web interface powered by Typescipt and Nodejs. Nodejs allows for Javascript and Typescript to be excuted outside of a browser, in this case it is neccesary as it allows for direct acces to the serial port to commuincate with the microcontroller gathering the telemetry.
@@ -104,8 +104,9 @@ On the MPPT and system input boards, there are three potentiometers. From top to
 ### Bill of Materials:
 #### MPPT Components
 |Component | Part Number | Description | Source |
-| --- | --- | --- | --- |
-
+| --- | --- | --- | --- | 
+| Max Peak Power Tracking Chip | LT3652EMSE#PBF | IC BATT CHG MULTI-CHEM 12MSOP| [Digikey](https://www.digikey.ca/en/products/detail/linear-technology-analog-devices/LT3652EMSE-PBF/2225686)| 
+| Chip Adapter | IPC0078 | MSOP-12 TO DIP-16 SMT ADAPTER | [Digikey](https://www.digikey.com/en/products/detail/chip-quik-inc/IPC0078/5014744) 
 #### DC-DC Conversion Components
 |Component | Part Number | Description | Source |
 | --- | --- | --- | --- |
@@ -146,11 +147,21 @@ Where the *V,C, and T* represent a integer voltage, current, or temperature. The
 Actual Voltage = Measured Voltage * Gain
 
 
+<<<<<<< HEAD
 **Current Sensors**: Current sensing is achieved using the MA4080 in series with various points throughout the system as shown in the Telemetry schematic. Since the measured currents are sometimes small and the MAX4080 outputs a voltage equivalent to the measured current, LM348N amplifiers are used between the current sensors and the MUX to allow for a more realiable measurement on-board the Arduino. The calculation to convert these measurements back to current is shown below.
+=======
+**Current Sensors**: Current sensing is achieved using the MA4080 in series with various points throughout the system. Since the measured currents are sometimes small and the MAX4080 outputs a voltage equivalent to the measured current, amplifiers are added between the current sensors and the MUX to allow for a more realiable measurement on-board the Arduino. The calculation to convert these measurements back to current is shown below.
 
-[ADD Calculation]
+Actual Current = Measured Voltage / Current Gain
+>>>>>>> 1848d20ec2ec0dc8ad360415af5fa9f7f4461677
 
+The Current Gain for the sensors in this circuit is 3. (This value is defined in `Sensors.h`.)
+
+<<<<<<< HEAD
 **Temperature Sensors**: 2 kOhm, 3500K thermistors are used to measure temperature at various points throughout the system. These are mechanically mounted on various IC's such as the LT3652 used in the MPPT system. The circuitry for the thermistors is very similar to that of the voltage dividers (see the Telemetry schematic, R29,31,33,35), as such the measured signal is fed directly into the MUX and small calculation is performed by the Arduino to convert the measured voltage to a temperature, as shown below.
+=======
+**Temperature Sensors**: Thermistors are used to measure temperature at various points throughout the system. These are mechanically mounted on various IC's such as the LT3652 used in the MPPT system. The circuitry for the thermistors is very similar to that of the voltage dividers, as such the measured signal is fed directly into the MUX and small calculation is performed by the Arduino to convert the measured voltage to a temperature, as shown below.
+>>>>>>> 1848d20ec2ec0dc8ad360415af5fa9f7f4461677
 
 R<sub>t</sub> = 10000 * (5/V - 1)
 
