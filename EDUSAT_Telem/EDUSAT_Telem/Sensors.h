@@ -4,7 +4,9 @@
 // ====================
 // Libraries
 // ====================
+#include <Arduino.h>
 #include <stdint.h>
+#include <math.h>
 
 // ====================
 // Constant Definitions

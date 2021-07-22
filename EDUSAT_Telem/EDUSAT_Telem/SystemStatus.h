@@ -4,7 +4,10 @@
 // ====================
 // Libraries
 // ====================#
+#include <Arduino.h>
 #include <stdint.h>
+#include <math.h>
+
 #include "Sensors.h"
 #include "MUX.h"
 

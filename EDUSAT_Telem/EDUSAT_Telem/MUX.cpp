@@ -1,9 +1,6 @@
 // ====================
 // Libraries
 // ====================
-#include <Arduino.h>
-#include <stdint.h>
-#include <math.h>
 #include "MUX.h"
 
 // =================
@@ -27,7 +24,6 @@ MultiPlex::MultiPlex(int size, int sig1, int sig2, int sig3, int sig4, int data)
     controlPins[2] = sig3;
     controlPins[3] = sig4;
     sigPin = data;
-
     //*muxChannels = &binaryChannels;
 }
 
@@ -41,9 +37,5 @@ float MultiPlex::readMux(int channel)
 
     //Read current MUX output on the selected channel from the data/signal pin
     float val = analogRead(sigPin) * (5.0 / 1023.0);
-    //Serial.print("analog read is: ");
-    //Serial.println(val);
-
-    //Return the current value
     return val;
 }

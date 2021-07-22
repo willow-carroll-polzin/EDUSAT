@@ -4,7 +4,10 @@
 // ====================
 // Libraries
 // ====================#
+#include <Arduino.h>
 #include <stdint.h>
+#include <math.h>
+
 
 // ====================
 // Constant Definitions
@@ -23,7 +26,6 @@
 // =================
 // Class Definitions
 // =================
-//===================================================================================
 class MultiPlex {
     private:
         int muxSize;

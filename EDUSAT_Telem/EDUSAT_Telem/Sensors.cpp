@@ -1,9 +1,6 @@
 // ====================
 // Libraries
 // ====================
-#include <Arduino.h>
-#include <stdint.h>
-#include <math.h>
 #include "Sensors.h"
 
 // =================
@@ -67,7 +64,7 @@ void Sensor::currentCalculator(float curVal, int j)
   }
 }
 
-//TODO: Un-hardcode these temperature constants, and measure the Vin term from the 
+//TODO: Un-hardcode these temperature constants, and measure the Vin term from them 
 void Sensor::temperatureCalculator(float curVal, int t)
 {
     //Calculate equivalent resistance of thermistor
