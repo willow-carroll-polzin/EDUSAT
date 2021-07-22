@@ -116,7 +116,12 @@ On the MPPT and system input boards, there are three potentiometers. From top to
 ### Telemetry components
 |Component | Part Number | Description | Source |
 | --- | --- | --- | --- |
-|Sparkfun MUX | BOB-09056 | 16 Channel Analog to Analog Mux | [Digikey](https://www.digikey.ca/en/products/detail/sparkfun-electronics/BOB-09056/5673767)
+|Sparkfun MUX | BOB-09056 | 16 Channel Analog to Analog Mux | [Digikey](https://www.digikey.ca/en/products/detail/sparkfun-electronics/BOB-09056/5673767)|
+|Temperature Sensors | LM35DZ/NOPB-ND| SENSOR ANALOG 0C-100C | [Digikey](https://www.digikey.ca/short/pwf0fj)|
+|Temperature Sensors | NXRT15XM202EA1B040| THERMISTOR NTC 2KOHM 3500K BEAD| [Digikey](https://www.digikey.ca/product-detail/en/NXRT15XM202EA1B040/490-7170-ND/3900401/?itemSeq=305110767)|
+|Current Sensor| MAX4080FASA+T| Current Sensor| [Digikey](https://www.digikey.ca/en/products/detail/maxim-integrated/MAX4080FASA-T/7603765)|
+|SMD Adapter| 1528-1071-ND| Adapter for mounting the MAX4080| [Digikey](https://www.digikey.ca/short/pf3q9n)|
+
 
 ## EDUSAT Software - Data Collection via Microcontroller
 EDUSAT's telemetry in the form of voltages, currents, and temperatures are gathered on the MCU. This data is then sent via serial port to the client running on the connected computer. 
