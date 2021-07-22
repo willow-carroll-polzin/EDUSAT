@@ -74,22 +74,29 @@ The main components of EDUSAT can be seen in the diagram below:
 More detailed schematics can be found in the following sections.
 
 ### Maximum Peak Power Tracking (MPPT):
+The MPPT schematic below shows how the LT3652 IC is used to perform peak power tracking from a general input source, either a solar panel or power supply. Additionally three potentiometers are used (VR1, VR2, VR3) to set the minimum input voltage and steady output voltage for the circuit, their current listed values allow for 12V input and 7.4V output. 
+
+This output goes directly to a battery for charging as well as the DC-DC converion circuit. Note that if no input votlage is available the system will run of battery power and if a input is available then it will be used to run the system and charge the battery.
 
 ![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_mppt.png?raw=true)
 Note the potentiometer values (components VR1, VR2, VR3), these are used to allow for a 12V input and a 7.4V output.
 
 ### DC-DC Conversion:
+This schematic shows DC-DC conversion setup which allows for three outputs from the system at 3V3, 5V, and 9V. Note the input net is coming from a voltage sensor.
 
 ![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_dcdc.png?raw=true)
 
 ### Telemetry:
+The following schematic shows the four temperature sensors, six voltage sensors, and six current sensor outputs going into a 16-channel MUX. The output of which is fedinto a Arduino Nano.
 
 ![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_telem.png?raw=true)
+
+This schematic shows the current sensors, note the various nets which act as inputs to each come from various test points throughout the system. The output net of the amplifier for each sensor is shown in the previous schematic, as mentioned above.
 
 ![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_sense.png?raw=true)
 
 ### EDUSAT Prototypes - (V1.0):
-A prototype version is pictured below:
+A prototype version of EDUSAT is pictured below:
 
 ![alt text](https://github.com/MaxPolzinCU/EDUSAT/blob/master/Hardware/edusat_protoV1.png?raw=true)
 
@@ -147,21 +154,13 @@ Where the *V,C, and T* represent a integer voltage, current, or temperature. The
 Actual Voltage = Measured Voltage * Gain
 
 
-<<<<<<< HEAD
 **Current Sensors**: Current sensing is achieved using the MA4080 in series with various points throughout the system as shown in the Telemetry schematic. Since the measured currents are sometimes small and the MAX4080 outputs a voltage equivalent to the measured current, LM348N amplifiers are used between the current sensors and the MUX to allow for a more realiable measurement on-board the Arduino. The calculation to convert these measurements back to current is shown below.
-=======
-**Current Sensors**: Current sensing is achieved using the MA4080 in series with various points throughout the system. Since the measured currents are sometimes small and the MAX4080 outputs a voltage equivalent to the measured current, amplifiers are added between the current sensors and the MUX to allow for a more realiable measurement on-board the Arduino. The calculation to convert these measurements back to current is shown below.
 
 Actual Current = Measured Voltage / Current Gain
->>>>>>> 1848d20ec2ec0dc8ad360415af5fa9f7f4461677
 
 The Current Gain for the sensors in this circuit is 3. (This value is defined in `Sensors.h`.)
 
-<<<<<<< HEAD
 **Temperature Sensors**: 2 kOhm, 3500K thermistors are used to measure temperature at various points throughout the system. These are mechanically mounted on various IC's such as the LT3652 used in the MPPT system. The circuitry for the thermistors is very similar to that of the voltage dividers (see the Telemetry schematic, R29,31,33,35), as such the measured signal is fed directly into the MUX and small calculation is performed by the Arduino to convert the measured voltage to a temperature, as shown below.
-=======
-**Temperature Sensors**: Thermistors are used to measure temperature at various points throughout the system. These are mechanically mounted on various IC's such as the LT3652 used in the MPPT system. The circuitry for the thermistors is very similar to that of the voltage dividers, as such the measured signal is fed directly into the MUX and small calculation is performed by the Arduino to convert the measured voltage to a temperature, as shown below.
->>>>>>> 1848d20ec2ec0dc8ad360415af5fa9f7f4461677
 
 R<sub>t</sub> = 10000 * (5/V - 1)
 
